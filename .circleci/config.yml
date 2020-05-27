@@ -23,5 +23,7 @@ workflows:
     build-test-deploy:
       jobs:
         - build-and-test
-        - heroku-deploy
+        - heroku-deploy:
+              requires:
+                  - build-and-test
 
