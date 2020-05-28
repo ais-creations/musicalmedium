@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 function App() {
   return (
-    <div className="content">
+    <div className="dummy-big-content">
       <Layout>
         <Header className="header" title="Pink Fluffy Unicorn" scroll>
           <Navigation>
