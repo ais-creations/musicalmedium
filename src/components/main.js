@@ -5,6 +5,7 @@ import Feed from "./feed";
 import Gigs from "./gigs";
 import Musicians from "./musicians";
 import Profile from "./profile";
+import Login from "./Login";
 
 const Main = () => (
   <Switch>
@@ -13,6 +14,7 @@ const Main = () => (
     <Route path="/gigs" component={Gigs}/>
     <Route path="/musicians" component={Musicians}/>
     <Route path="/profile" component={Profile}/>
+    <Route path="/login" component={Login}/>
   </Switch>
 )
 

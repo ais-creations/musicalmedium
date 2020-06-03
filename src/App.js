@@ -2,11 +2,18 @@ import React from "react";
 import "./App.css";
 import {Layout, Header, Navigation, Content} from 'react-mdl';
 import Main from "./components/main";
-import {Link} from "react-router-dom";
+import {
+  Link
+} from "react-router-dom";
+// import Login from "./components/Login";
+// import Home from "./components/home";
+// import Gigs from "./components/gigs";
 
 
 function App() {
+
   return (
+
     <div className="dummy-big-content">
       <Layout>
         <Header className="header" title="Musical Medium" scroll>
