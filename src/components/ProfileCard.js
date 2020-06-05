@@ -17,7 +17,7 @@ class ProfileCard extends Component {
             <a href="#" className="providerNameLink provider-name loud ellipsis_line fontSize16 ">
               <span>Radostin Petrov</span>
             </a>
-            <input type="hidden" name="branchId" className="needFromBranchId" value="1837798"/>
+            <input type="hidden" name="branchId" className="needFromBranchId" defaultValue={1837798}/>
           </div>
           <div className="details-row">
             <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon">
@@ -42,9 +42,9 @@ class ProfileCard extends Component {
               Professional
             </div>
           </div>
-          <div className="provider-right-block textAlignRit" data-branchinsid="1837798" data-seopageinstanceid="4853609"
-               data-from="seoSearch" data-exotelneedflow="true" data-uniqueid="" data-pagegroupvalue="ProviderIndia"
-               data-source="SEARCH_RESULTS" data-topicid="1766">
+          <div className="provider-right-block textAlignRit" data-branchinsid={1837798} data-seopageinstanceid={4853609}
+               data-from="seoSearch" data-exotelneedflow="true" data-uniqueid data-pagegroupvalue="ProviderIndia"
+               data-source="SEARCH_RESULTS" data-topicid={1766}>
             <div className="appendMsgCall">
               <button className="btn btn-primary" data-for="message">
                 Message
