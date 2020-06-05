@@ -11,8 +11,6 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <p>Treble</p>
         </header>
-
-        <Login/>
       </div>
   );
 }
