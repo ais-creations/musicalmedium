@@ -55,6 +55,16 @@ class Login extends Component {
           <h2 className="text-info" style={{ fontSize: '24px' }}>Log In</h2>
         </div>
         <form>
+          <a className="btn btn-primary btn-block text-white btn-google btn-user" role="button"
+             style={{ border: 'none', backgroundColor: 'rgb(220,69,56)' }}>
+            <i className="fab fa-google"/>
+            &nbsp;Log in with Google
+          </a>
+          <a className="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"
+             style={{ backgroundColor: 'rgb(59,89,152)', border: 'none' }}>
+            <i className="fab fa-facebook-f"/>
+            &nbsp;Log in with Facebook
+          </a>
           <div className="d-flex flex-row align-items-center login-box-seperator-container"
                style={{ paddingTop: '24px' }}>
             <div className="login-box-seperator"/>
