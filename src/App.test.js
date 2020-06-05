@@ -4,7 +4,7 @@ import App from './App';
 
 test('dummy test', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/inni/i);
+  const linkElement = getByText(/treble/i);
   expect(linkElement).toBeInTheDocument();
 });
 
