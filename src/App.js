@@ -3,33 +3,13 @@ import logo from "./logo.svg";
 import "./App.css";
 import "./components/Login"
 import Login from "./components/Login";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="App">
-      <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div className="container"><a className="navbar-brand logo" href="#" style={{
-          color: 'rgba(255,255,255,0.9)',
-          fontFamily: 'Montserrat, sans-serif'
-        }}>Treble</a>
-          <button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1"><span className="sr-only">Toggle navigation</span><span
-            className="navbar-toggler-icon"/></button>
-          <div className="collapse navbar-collapse" id="navcol-1">
-            <ul className="nav navbar-nav ml-auto">
-              <li className="nav-item" role="presentation"><a className="nav-link active" href="index.html"><i
-                className="fas fa-home"/>&nbsp;HOME</a></li>
-              <li className="nav-item" role="presentation"><a className="nav-link" href="features.html"><i
-                className="fas fa-spinner"/>&nbsp;LEARN</a></li>
-              <li className="nav-item" role="presentation"><a className="nav-link" href="pricing.html"><i
-                className="fas fa-podcast"/>&nbsp;TEACH</a></li>
-              <li className="nav-item" role="presentation"><a className="nav-link" href="profile.html"><i
-                className="far fa-user-circle"/>&nbsp;PROFILE</a></li>
-              <li className="nav-item" role="presentation"><a className="nav-link" href="login.html"><i
-                className="fas fa-sign-in-alt"/>&nbsp;LOG IN</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Header/>
       <main className="page landing-page">
         <section className="clean-block clean-hero" style={{
           backgroundImage: 'url("assets/img/person-playing-sun-burst-electric-bass-guitar-in-bokeh-96380.jpg")',
@@ -166,47 +146,7 @@ function App() {
           </div>
         </section>
       </main>
-      <footer className="page-footer dark">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-3">
-              <h5>Get started</h5>
-              <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Sign up</a></li>
-                <li><a href="#">Log in</a></li>
-              </ul>
-            </div>
-            <div className="col-sm-3">
-              <h5>About us</h5>
-              <ul>
-                <li><a href="#">Company Information</a></li>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Reviews</a></li>
-              </ul>
-            </div>
-            <div className="col-sm-3">
-              <h5>Support</h5>
-              <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Help desk</a></li>
-                <li><a href="#">Forums</a></li>
-              </ul>
-            </div>
-            <div className="col-sm-3">
-              <h5>Legal</h5>
-              <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Terms of Use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="footer-copyright">
-          <p>© 2020 AIS Creations</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
