@@ -22,30 +22,30 @@ class Login extends Component {
     });
   }
 
-  // handleSubmit(event) {
-  //   const { email, password } = this.state;
-  //
-  //   axios
-  //     .post(
-  //       "http://localhost:3001/sessions",
-  //       {
-  //         user: {
-  //           email: email,
-  //           password: password
-  //         }
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     .then(response => {
-  //       if (response.data.logged_in) {
-  //         this.props.handleSuccessfulAuth(response.data);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log("login error", error);
-  //     });
-  //   event.preventDefault();
-  // }
+  handleSubmit(event) {
+    const { email, password } = this.state;
+
+    // axios
+    //   .post(
+    //     "http://localhost:3001/sessions",
+    //     {
+    //       user: {
+    //         email: email,
+    //         password: password
+    //       }
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then(response => {
+    //     if (response.data.logged_in) {
+    //       this.props.handleSuccessfulAuth(response.data);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log("login error", error);
+    //   });
+    // event.preventDefault();
+  }
 
   render() {
     return (
