@@ -17,7 +17,7 @@ function App() {
         }}>
           <div className="text">
             <h2>Connecting musicians with one another</h2>
-            <p>Treble is a platform that allows all musicians find or become online tutors</p>
+            <p>Trebl is a platform that allows all musicians find or become online tutors</p>
             <button className="btn btn-outline-light btn-lg" type="button">Sign Up</button>
           </div>
         </section>
