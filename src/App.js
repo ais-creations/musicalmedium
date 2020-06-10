@@ -3,12 +3,30 @@ import logo from "./logo.svg";
 import "./App.css";
 import "./components/Login"
 import Login from "./components/Login";
+import LoginTest from './components/auth/Login';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Register from "./components/auth/Register";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
+      <Router>
+      <Switch>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/logintest">
+          <LoginTest />
+        </Route>
+      </Switch>
+    </Router>
       <Header/>
       <main className="page landing-page">
         <section className="clean-block clean-hero" style={{
