@@ -43,6 +43,11 @@ router.post("/register", (req, res) => {
         }
     });
 });
+// router.get('/login', (req, res) => {
+//     return (
+//         res.status(400).json({"hi": "indip"})
+//     )
+// });
 
 router.post("/login", (req, res) => {
     // Form validation
