@@ -1,0 +1,57 @@
+.bg-white {
+  background-color: #ffffff!important;
+}
+
+.navbar.navbar-light.navbar-expand-lg.fixed-top.bg-white.clean-navbar {
+}
+
+.btn-google:hover {
+  background-color: rgb(188,59,48)!important;
+}
+
+.btn-facebook:hover {
+  background-color: rgb(48,72,123)!important;
+}
+
+@media (max-width: 991px) {
+  .signupwide {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .signuptall {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .post-holder {
+    text-align: center;
+  }
+}
+
+@media (min-width: 361px) {
+  .post-holder {
+    text-align: right;
+  }
+}
+
+@media (max-width: 360px) {
+  .profile-card-img {
+    height: 100px;
+  }
+}
+
+@media (min-width: 361px) {
+  .profile-card-img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 577px) {
+  .profile-card-img {
+    height: 200px;
+  }
+}
+
