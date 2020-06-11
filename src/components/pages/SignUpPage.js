@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import Login from "../reusables/Login";
-import axios from "axios";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import classnames from "classnames";
+
 
 
 class SignUpPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: "",
       email: "",
@@ -14,9 +18,18 @@ class SignUpPage extends Component {
       errors: {}
     };
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+
   onSubmit = e => {
     e.preventDefault();
     const newUser = {
@@ -25,10 +38,9 @@ class SignUpPage extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    axios.post('http://localhost:4000/users/register', newUser)
-        .then(res => console.log(res.data))
-    console.log(newUser);
+    this.props.registerUser(newUser, this.props.history);
   };
+
   render() {
     const { errors } = this.state;
     return (
@@ -50,23 +62,35 @@ class SignUpPage extends Component {
                 <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Full Name</label>
                   <input onChange={this.onChange}
                          value={this.state.name}
-                         error={errors.name} className="form-control item" type="text" id="name" style={{fontSize: '14px'}} />
+                         error={errors.name} className={classnames("form-control item", {
+                  invalid: errors.name
+                  })} type="text" id="name" style={{fontSize: '14px'}} />
+                  <span className="red-text">{errors.name}</span>
                 </div>
                 <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Email</label>
                   <input onChange={this.onChange}
                          value={this.state.email}
-                         error={errors.email} className="form-control item" type="text" id="email" style={{fontSize: '14px'}} />
+                         error={errors.email} className={classnames("form-control item", {
+                    invalid: errors.email
+                  })} type="text" id="email" style={{fontSize: '14px'}} />
+                  <span className="red-text">{errors.email}</span>
                 </div>
                 <div className="form-group"><label htmlFor="password" style={{fontSize: '14px'}}>Password</label>
                   <input onChange={this.onChange}
                          value={this.state.password}
                          error={errors.password}
-                         className="form-control" type="password" id="password" style={{lineHeight: '14px'}} />
+                         className={classnames("form-control", {
+                           invalid: errors.password
+                         })} type="password" id="password" style={{lineHeight: '14px'}} />
+                  <span className="red-text">{errors.password2}</span>
                 </div>
                 <div className="form-group"><label htmlFor="password" style={{fontSize: '14px'}}>Confirm Password</label>
                   <input onChange={this.onChange}
                          value={this.state.password2}
-                         error={errors.password2} className="form-control" type="password" id="password2" style={{lineHeight: '14px'}} />
+                         error={errors.password2} className={classnames("form-control", {
+                    invalid: errors.password2
+                  })} type="password" id="password2" style={{lineHeight: '14px'}} />
+                  <span className="red-text">{errors.password2}</span>
                 </div>
                 <div className="form-group">
                   <div className="d-flex justify-content-between">
@@ -86,4 +110,18 @@ class SignUpPage extends Component {
   }
 }
 
-export default SignUpPage
+SignUpPage.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { registerUser }
+)(withRouter(SignUpPage));

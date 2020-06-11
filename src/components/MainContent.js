@@ -6,6 +6,8 @@ import TeachPage from "./pages/TeachPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import PrivateRoute from "./private-route/PrivateRoute";
+import Dashboard from "./dashboard/Dashboard";
 
 const MainContent = () => (
   <Switch>
@@ -15,6 +17,9 @@ const MainContent = () => (
     <Route path="/profile" component={ProfilePage}/>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}/>
+      <Switch>
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      </Switch>
   </Switch>
 )
 

@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import axios from "axios";
-
-// import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
+import classnames from "classnames";
 
 class Login extends Component {
 
@@ -13,6 +14,18 @@ class Login extends Component {
       errors: {}
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard"); // push user to dashboard when they login
+    }
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -22,9 +35,9 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post('http://localhost:4000/users/login', userData)
-        .then(res => console.log(res.data))
-    console.log(userData);
+
+    this.props.loginUser(userData);
+
   };
 
   render() {
@@ -64,13 +77,25 @@ class Login extends Component {
           <div className="form-group"><label htmlFor="email" style={{ fontSize: '14px' }}>Email</label>
             <input onChange={this.onChange}
                    value={this.state.email}
-                   error={errors.email} className="form-control item" type="text" id="email" style={{ fontSize: '14px' }}/>
+                   error={errors.email} className={classnames("form-control item", {
+              invalid: errors.email || errors.emailnotfound
+            })} type="text" id="email" style={{ fontSize: '14px' }}/>
+            <span className="red-text">
+                  {errors.email}
+              {errors.emailnotfound}
+                </span>
           </div>
           <div className="form-group"><label htmlFor="password" style={{ fontSize: '14px' }}>Password</label>
             <input onChange={this.onChange}
                    value={this.state.password}
-                   error={errors.password} className="form-control" type="password" id="password" style={{ lineHeight: '14px' }}
-            /></div>
+                   error={errors.password} className={classnames("form-control", {
+              invalid: errors.password || errors.passwordincorrect
+            })} type="password" id="password" style={{ lineHeight: '14px' }} />
+            <span className="red-text">
+                  {errors.password}
+              {errors.passwordincorrect}
+                </span>
+          </div>
           <div className="form-group">
             <div className="d-flex justify-content-between">
               <div className="form-check form-check-inline" id="form-check-rememberMe"><input
@@ -123,4 +148,17 @@ class Login extends Component {
   }
 }
 
-export default Login
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { loginUser }
+)(Login);
