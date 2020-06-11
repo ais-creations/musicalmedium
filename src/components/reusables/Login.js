@@ -3,21 +3,23 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import Redirect from "react-router-dom/es/Redirect";
 
 class Login extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      toDashboard: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); // push user to dashboard when they login
+      this.setState(() => ({toDashboard: true})) // push user to dashboard when they login
     }
     if (nextProps.errors) {
       this.setState({
@@ -42,6 +44,9 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
+    if (this.state.toDashboard === true) {
+      return <Redirect to='/dashboard' />
+    }
     return (
       <div className="container">
         <div className="block-heading">
