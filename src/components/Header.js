@@ -26,7 +26,7 @@ class Header extends Component {
           fontFamily: 'Montserrat, sans-serif'
         }}>Treble</a>
           <div>
-            <Link to="/login" className="signuptall">
+            <Link to="/signup" className="signuptall">
               <button className="btn btn-primary" type="button" style={{ marginLeft: '0px', marginRight: '10px' }}>
                 Sign Up
               </button>
@@ -52,7 +52,7 @@ class Header extends Component {
               </li>
             </ul>
           </Collapse>
-          <Link to='/login' className="signupwide" href="signup.html">
+          <Link to='/signup' className="signupwide">
             <button className="btn btn-primary" type="button">
               Sign Up
             </button>

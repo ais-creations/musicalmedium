@@ -5,6 +5,7 @@ import LearnPage from "./pages/LearnPage";
 import TeachPage from "./pages/TeachPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 const MainContent = () => (
   <Switch>
@@ -13,6 +14,7 @@ const MainContent = () => (
     <Route path="/teach" component={TeachPage}/>
     <Route path="/profile" component={ProfilePage}/>
     <Route path="/login" component={LoginPage}/>
+    <Route path="/signup" component={SignUpPage}/>
   </Switch>
 )
 
