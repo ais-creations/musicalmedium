@@ -65,7 +65,7 @@ class SignUpPage extends Component {
                          error={errors.name} className={classnames("form-control item", {
                   invalid: errors.name
                   })} type="text" id="name" style={{fontSize: '14px'}} />
-                  <span className="red-text">{errors.name}</span>
+                  <span className="error-text">{errors.name}</span>
                 </div>
                 <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Email</label>
                   <input onChange={this.onChange}
@@ -73,16 +73,16 @@ class SignUpPage extends Component {
                          error={errors.email} className={classnames("form-control item", {
                     invalid: errors.email
                   })} type="text" id="email" style={{fontSize: '14px'}} />
-                  <span className="red-text">{errors.email}</span>
+                  <span className="error-text">{errors.email}</span>
                 </div>
-                <div className="form-group"><label htmlFor="password" style={{fontSize: '14px'}}>Password</label>
+                <div className= "form-group"><label htmlFor="password" style={{fontSize: '14px'}}>Password</label>
                   <input onChange={this.onChange}
                          value={this.state.password}
                          error={errors.password}
                          className={classnames("form-control", {
                            invalid: errors.password
                          })} type="password" id="password" style={{lineHeight: '14px'}} />
-                  <span className="red-text">{errors.password2}</span>
+                  <span className="error-text">{errors.password2}</span>
                 </div>
                 <div className="form-group"><label htmlFor="password" style={{fontSize: '14px'}}>Confirm Password</label>
                   <input onChange={this.onChange}
@@ -90,7 +90,7 @@ class SignUpPage extends Component {
                          error={errors.password2} className={classnames("form-control", {
                     invalid: errors.password2
                   })} type="password" id="password2" style={{lineHeight: '14px'}} />
-                  <span className="red-text">{errors.password2}</span>
+                  <span className="error-text">{errors.password2}</span>
                 </div>
                 <div className="form-group">
                   <div className="d-flex justify-content-between">

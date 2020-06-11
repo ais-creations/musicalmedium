@@ -280,9 +280,14 @@
 
 .provider-info-icon {
   min-width: 20px;
-  margin-right: 1px;
+  margin-right: 5px;
   /*display: inline-flex;*/
   color: #888;
+}
+
+.error-text {
+  font-size: 12px;
+  color: red;
 }
 
 .inline-block {

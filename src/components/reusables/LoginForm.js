@@ -68,23 +68,25 @@ class LoginForm extends Component {
                style={{ paddingTop: '24px' }}>
             <div className="login-box-seperator"/>
             <div className="login-box-seperator-text">
-              <p style={{ paddingLeft: '10px', paddingRight: '10px', fontWeight: 400, color: 'rgb(0,0,0)' }}>
+              <p style={{ marginBottom: '0px', paddingLeft: '10px', paddingRight: '10px', color: 'rgb(0,0,0)' }}>
                 or
               </p>
             </div>
             <div className="login-box-seperator"/>
           </div>
-          <div className="form-group"><label htmlFor="email" style={{ fontSize: '14px' }}>Email</label>
+          <div className="form-group">
+            <label htmlFor="email" style={{ fontSize: '14px' }}>Email</label>
             <input onChange={this.onChange} value={this.state.email}
                    className={classnames("form-control item", { invalid: errors.email || errors.emailnotfound })}
                    type="text" id="email" style={{ fontSize: '14px' }}/>
-            <span className="red-text">{errors.email}{errors.emailnotfound}</span>
+            <span className="error-text">{errors.email}{errors.emailnotfound}</span>
           </div>
-          <div className="form-group"><label htmlFor="password" style={{ fontSize: '14px' }}>Password</label>
+          <div className="form-group">
+            <label htmlFor="password" style={{ fontSize: '14px' }}>Password</label>
             <input onChange={this.onChange} value={this.state.password}
                    className={classnames("form-control", { invalid: errors.password || errors.passwordincorrect })}
                    type="password" id="password" style={{ lineHeight: '14px' }}/>
-            <span className="red-text">{errors.password}{errors.passwordincorrect}</span>
+            <span className="error-text">{errors.password}{errors.passwordincorrect}</span>
           </div>
           <div className="form-group">
             <div className="d-flex justify-content-between">
