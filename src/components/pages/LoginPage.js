@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Login from "../reusables/Login";
+import Login from "../reusables/LoginForm";
 
 class LoginPage extends Component {
   render() {

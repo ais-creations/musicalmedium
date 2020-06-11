@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import "./components/reusables/Login"
-import Login from "./components/reusables/Login";
+import "./components/reusables/LoginForm"
+import Login from "./components/reusables/LoginForm";
 import LoginTest from './components/auth/Login';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
