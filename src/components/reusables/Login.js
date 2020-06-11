@@ -1,60 +1,40 @@
 import React, {Component} from "react";
+import axios from "axios";
 
 // import axios from "axios";
 
 class Login extends Component {
 
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
       email: "",
       password: "",
-      loginErrors: ""
+      errors: {}
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  handleSubmit(event) {
-    const { email, password } = this.state;
-
-    // axios
-    //   .post(
-    //     "http://localhost:3001/sessions",
-    //     {
-    //       user: {
-    //         email: email,
-    //         password: password
-    //       }
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then(response => {
-    //     if (response.data.logged_in) {
-    //       this.props.handleSuccessfulAuth(response.data);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log("login error", error);
-    //   });
-    // event.preventDefault();
-  }
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+  onSubmit = e => {
+    e.preventDefault();
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    axios.post('http://localhost:4000/users/login', userData)
+        .then(res => console.log(res.data))
+    console.log(userData);
+  };
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="container">
         <div className="block-heading">
           <h2 className="text-info" style={{ fontSize: '24px' }}>Log In</h2>
         </div>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <a className="btn btn-primary btn-block text-white btn-google btn-user" role="button"
              style={{ border: 'none', backgroundColor: 'rgb(220,69,56)' }}>
             <i className="fab fa-google"/>
@@ -82,14 +62,19 @@ class Login extends Component {
             <div className="login-box-seperator"/>
           </div>
           <div className="form-group"><label htmlFor="email" style={{ fontSize: '14px' }}>Email</label>
-            <input className="form-control item" type="text" id="email" style={{ fontSize: '14px' }}/>
+            <input onChange={this.onChange}
+                   value={this.state.email}
+                   error={errors.email} className="form-control item" type="text" id="email" style={{ fontSize: '14px' }}/>
           </div>
-          <div className="form-group"><label htmlFor="password" style={{ fontSize: '14px' }}>Password</label><input
-            className="form-control" type="password" id="password" style={{ lineHeight: '14px' }}/></div>
+          <div className="form-group"><label htmlFor="password" style={{ fontSize: '14px' }}>Password</label>
+            <input onChange={this.onChange}
+                   value={this.state.password}
+                   error={errors.password} className="form-control" type="password" id="password" style={{ lineHeight: '14px' }}
+            /></div>
           <div className="form-group">
             <div className="d-flex justify-content-between">
               <div className="form-check form-check-inline" id="form-check-rememberMe"><input
-                className="form-check-input" type="checkbox" id="formCheck-1" htmlfor="remember"
+                className="form-check-input" type="checkbox" id="formCheck-1" htmlFor="remember"
                 style={{ cursor: 'pointer' }} name="check"/><label className="form-check-label"
                                                                    htmlFor="formCheck-1"><span className="label-text"
                                                                                                style={{
@@ -100,7 +85,7 @@ class Login extends Component {
               <a href="#" style={{ fontSize: '14px' }}>Forgot Password</a>
             </div>
           </div>
-          <button className="btn btn-primary btn-block" type="button">Log In</button>
+          <button className="btn btn-primary btn-block" type="submit">Log In</button>
           <div id="login-box-footer" style={{ padding: '10px 20px', paddingBottom: '23px', paddingTop: '18px' }}>
             <p style={{ marginBottom: '0px', fontSize: '14px' }}>Don't have an account?<a href="signup.html" style={{
               fontSize: '14px',

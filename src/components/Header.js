@@ -36,19 +36,19 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <ul className="nav navbar-nav ml-auto">
               <li className="nav-item" role="presentation">
-                <Link to="/" className="nav-link"><i className="fas fa-home"/>&nbsp;HOME</Link>
+                <Link onClick={this.toggle} to="/" className="nav-link"><i className="fas fa-home"/>&nbsp;HOME</Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link to="/learn" className="nav-link"><i className="fas fa-spinner"/>&nbsp;LEARN</Link>
+                <Link onClick={this.toggle} to="/learn" className="nav-link"><i className="fas fa-spinner"/>&nbsp;LEARN</Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link to="/teach" className="nav-link"><i className="fas fa-podcast"/>&nbsp;TEACH</Link>
+                <Link onClick={this.toggle} to="/teach" className="nav-link"><i className="fas fa-podcast"/>&nbsp;TEACH</Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link to="/profile" className="nav-link"><i className="far fa-user-circle"/>&nbsp;PROFILE</Link>
+                <Link onClick={this.toggle} to="/profile" className="nav-link"><i className="far fa-user-circle"/>&nbsp;PROFILE</Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>
+                <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>
               </li>
             </ul>
           </Collapse>
