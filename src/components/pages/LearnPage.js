@@ -1,8 +1,24 @@
 import React, {Component} from 'react'
 import ProfileCard from "../reusables/ProfileCard";
 import UserPostCard from "../reusables/UserPostCard";
+import Popup from "../reusables/Popup";
 
 class LearnPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.togglePopup = this.togglePopup.bind(this);
+    this.state = {
+      showPopup: false
+    };
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
+
   render() {
     return (
       <main className="page">
@@ -10,7 +26,8 @@ class LearnPage extends Component {
           <div className="container" style={{ paddingTop: '30px' }}>
             <div>
               <div className="post-holder" style={{ marginRight: 0, marginBottom: '15px' }}>
-                <button className="btn btn-primary" type="button" style={{ margin: 0, marginBottom: 0 }}>Post
+                <button className="btn btn-primary" onClick={this.togglePopup}
+                        type="button" style={{ margin: 0, marginBottom: 0 }}>Post
                   Requirement
                 </button>
               </div>
@@ -56,6 +73,7 @@ class LearnPage extends Component {
             />
           </div>
         </section>
+        {this.state.showPopup ? <Popup closePopup={this.togglePopup.bind(this)}/> : null}
       </main>
     )
   }
