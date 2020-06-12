@@ -1,6 +1,9 @@
 import React, {Component, useState} from "react";
 import {Collapse, NavbarToggler} from "reactstrap";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {logoutUser} from "../actions/authActions";
 
 class Header extends Component {
   constructor(props) {
@@ -18,13 +21,54 @@ class Header extends Component {
     });
   }
 
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
+
+  logoutClick = e => {
+    this.onLogoutClick(e);
+    this.toggle();
+  }
+
+  choiceLoginLogout() {
+    const { isAuthenticated } = this.props.auth;
+    if (!isAuthenticated) {
+      return (
+      <li className="nav-item" role="presentation">
+        <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>
+      </li> )
+    } else {
+      return (
+          <li className="nav-item" role="presentation">
+            <Link onClick={this.logoutClick} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOGOUT</Link>
+          </li> )
+    }
+  }
+
+  // signUpChoice() {
+  //   const { isAuthenticated } = this.props.auth;
+  //   if (!isAuthenticated) {
+  //     return (
+  //     <Link to='/signup' className="signupwide">
+  //       <button className="btn btn-primary" type="button">
+  //         Sign Up
+  //       </button>
+  //     </Link>
+  //     )
+  //   } else {
+  //     return (<button>Hi Indip</button>)
+  //   }
+  // }
+
   render() {
+
     return (
       <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
         <div className="container"><a className="navbar-brand logo" href="#" style={{
           color: 'rgba(0,0,0,0.9)',
           fontFamily: 'Montserrat, sans-serif'
-        }}>Treble</a>
+        }}><Link to={'/'}> Treble </Link></a>
           <div>
             <Link to="/signup" className="signuptall">
               <button className="btn btn-primary" type="button" style={{ marginLeft: '0px', marginRight: '10px' }}>
@@ -47,11 +91,13 @@ class Header extends Component {
               <li className="nav-item" role="presentation">
                 <Link onClick={this.toggle} to="/profile" className="nav-link"><i className="far fa-user-circle"/>&nbsp;PROFILE</Link>
               </li>
-              <li className="nav-item" role="presentation">
-                <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>
-              </li>
+              {this.choiceLoginLogout()}
+              {/*<li className="nav-item" role="presentation">*/}
+              {/*  <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>*/}
+              {/*</li>*/}
             </ul>
           </Collapse>
+
           <Link to='/signup' className="signupwide">
             <button className="btn btn-primary" type="button">
               Sign Up
@@ -63,4 +109,15 @@ class Header extends Component {
   }
 }
 
-export default Header
+Header.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(Header);

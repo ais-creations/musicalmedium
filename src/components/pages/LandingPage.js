@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from "react-router-dom";
 
 class LandingPage extends Component {
   render() {
@@ -11,7 +12,7 @@ class LandingPage extends Component {
           <div className="text">
             <h2>Connecting musicians around the world</h2>
             <p>Treble is a platform that allows all musicians find or become musical mentors</p>
-            <button className="btn btn-outline-light btn-lg" type="button">Sign Up</button>
+            <Link to={'/signup'}><button className="btn btn-outline-light btn-lg" type="button">Sign Up</button></Link>
           </div>
         </section>
         <section className="clean-block clean-info dark">
