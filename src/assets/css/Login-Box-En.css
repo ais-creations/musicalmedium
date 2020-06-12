@@ -357,7 +357,7 @@
   left: 25%;
   right: 25%;
   top: 25%;
-  bottom: 25%;
+  bottom: auto;
   padding: 10px;
   margin: auto;
   background: white;
@@ -373,4 +373,18 @@
   right: 10px;
   top: 10px;
   font-size: 10px;
+}
+
+@media only screen and (max-width: 950px) {
+  .popup_inner {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 20%;
+    bottom: auto;
+    padding: 10px;
+    margin: auto;
+    background: white;
+    border-radius: 5px;
+  }
 }

@@ -18,7 +18,7 @@ class SignUpPage extends Component {
       errors: {}
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors

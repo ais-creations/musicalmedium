@@ -36,12 +36,13 @@ class LearnPage extends Component {
                   <h2 className="text-info" style={{ fontSize: '24px', marginBottom: '0px' }}>Active Posts</h2>
                 </div>
 
-                <UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"
-                              timeFrame="hour"
-                              keywords={["Vocals", "Pop", "Bass"]}
-                              description="I am a Rock Guitarist keen to improve my singing skills and start a band.
-                               Would ideally like hourly lessons thrice a week"
-                />
+                {/* This is for putting a post in active posts */}
+                {/*<UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"*/}
+                {/*              timeFrame="hour"*/}
+                {/*              keywords={["Vocals", "Pop", "Bass"]}*/}
+                {/*              description="I am a Rock Guitarist keen to improve my singing skills and start a band.*/}
+                {/*               Would ideally like hourly lessons thrice a week"*/}
+                {/*/>*/}
               </div>
             </div>
 
