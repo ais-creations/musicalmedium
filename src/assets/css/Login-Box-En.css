@@ -387,4 +387,13 @@
     background: white;
     border-radius: 5px;
   }
+  
+  .header-dropdown {
+    border:none;
+  }
+}
+
+.header-dropdown {
+  font-size: 14px;
+  margin-top: 5px;
 }

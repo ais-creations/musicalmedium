@@ -12,15 +12,17 @@ class ProfilePage extends Component {
       user: {}
     }
   }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
+
   render() {
     const { user } = this.props.auth;
-    axios.get('http://localhost:4000/users/'+ user.id)
-        .then(res => this.setState(() => ({user: res.data})))
-        .catch(err => console.log(err));
+    axios.get('http://localhost:4000/users/' + user.id)
+      .then(res => this.setState(() => ({ user: res.data })))
+      .catch(err => console.log(err));
 
     return (
       <main className="page">
@@ -54,18 +56,13 @@ class ProfilePage extends Component {
                 <div className="col s12 center-align">
                   <h4>
                   </h4>
-                  <button
-                      style={{
-                        width: "150px",
-                        borderRadius: "3px",
-                        letterSpacing: "1.5px",
-                        marginTop: "1rem"
-                      }}
-                      onClick={this.onLogoutClick}
-                      className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                  >
-                    Logout
-                  </button>
+                  {/*<button*/}
+                  {/*    style={{position: 'absolute', right: '10px'}}*/}
+                  {/*    onClick={this.onLogoutClick}*/}
+                  {/*    className="btn btn-primary waves-effect waves-light hoverable blue accent-3"*/}
+                  {/*>*/}
+                  {/*  Logout*/}
+                  {/*</button>*/}
                 </div>
               </div>
             </div>
@@ -85,7 +82,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps,
-    { logoutUser }
+  mapStateToProps,
+  { logoutUser }
 )(ProfilePage);
 

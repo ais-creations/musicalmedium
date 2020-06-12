@@ -3196,7 +3196,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .15);
-    border-radius: .25rem
+    border-radius: .25rem;
+    outline: 0;
 }
 
 .dropdown-menu-left {
@@ -3374,7 +3375,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #007bff
+    background-color: #007bff;
+    outline: 0;
 }
 
 .dropdown-item.disabled, .dropdown-item:disabled {

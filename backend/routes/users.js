@@ -66,9 +66,8 @@ router.post("/login", (req, res) => {
     User.findOne({ email }).then(user => {
         // Check if user exists
         if (!user) {
-            return res.status(404).json({ emailnotfound: "Email not found" });
+            return res.status(404).json({ emailnotfound: "Please enter a registered email" });
         }
-
 
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -77,7 +76,8 @@ router.post("/login", (req, res) => {
                 // Create JWT Payload
                 const payload = {
                     id: user.id,
-                    name: user.name
+                    name: user.name,
+                    // firstname: user.firstname
                 };
 
                 // Sign token

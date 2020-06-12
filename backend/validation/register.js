@@ -12,23 +12,23 @@ module.exports = function validateRegisterInput(data) {
 
     // Name checks
     if (Validator.isEmpty(data.name)) {
-        errors.name = "Name field is required";
+        errors.name = "*This field is required";
     }
 
     // Email checks
     if (Validator.isEmpty(data.email)) {
-        errors.email = "Email field is required";
+        errors.email = "*This field is required";
     } else if (!Validator.isEmail(data.email)) {
-        errors.email = "Email is invalid";
+        errors.email = "Please enter a valid email";
     }
 
     // Password checks
     if (Validator.isEmpty(data.password)) {
-        errors.password = "Password field is required";
+        errors.password = "*This field is required";
     }
 
     if (Validator.isEmpty(data.password2)) {
-        errors.password2 = "Confirm password field is required";
+        errors.password2 = "*This field is required";
     }
 
     if (!Validator.isLength(data.password, { min: 6, max: 30 })) {

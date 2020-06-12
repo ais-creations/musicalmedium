@@ -99,7 +99,8 @@ class SignUpPage extends Component {
                   </div>
                 </div><button className="btn btn-primary btn-block" type="submit">Sign Up</button>
                 <div id="login-box-footer" style={{padding: '10px 20px', paddingBottom: '23px', paddingTop: '18px'}}>
-                  <p style={{marginBottom: '0px', fontSize: '14px'}}>Already have an account?<a href="login.html" style={{fontSize: '14px', paddingRight: '8px', paddingLeft: '8px'}}>Log in!</a></p>
+                  <p style={{marginBottom: '0px', fontSize: '14px'}}>Already have an account?
+                    <Link to={"/login"} style={{fontSize: '14px', paddingRight: '8px', paddingLeft: '8px'}}>Log in!</Link></p>
                 </div>
               </form>
             </div>

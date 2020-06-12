@@ -50,7 +50,6 @@ if (localStorage.jwtToken) {
 
 function App() {
   return (
-      <Provider store={store}>
     <div className="App">
       {/*<Router>*/}
       {/*  <Switch>*/}
@@ -66,7 +65,6 @@ function App() {
       <MainContent/>
       <Footer/>
     </div>
-      </Provider>
   );
 }
 

@@ -12,14 +12,18 @@ import './assets/css/Profile-Card.css'
 import './assets/css/user.css'
 import {BrowserRouter} from "react-router-dom";
 import ScrollToTop from "./components/ScrollTo";
+import store from "./store";
+import {Provider} from "react-redux";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ScrollToTop>
-        <App/>
-      </ScrollToTop>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ScrollToTop>
+          <App/>
+        </ScrollToTop>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
