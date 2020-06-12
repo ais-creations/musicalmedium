@@ -1,10 +1,10 @@
 const Schema = mongoose.Schema;
 
 const LearnPostScheme = new Schema({
-  userID: {
-    type: String,
-    required: true
-  },
+  // userID: {
+  //   type: String,
+  //   required: true
+  // },
   title: {
     type: String,
     required: true

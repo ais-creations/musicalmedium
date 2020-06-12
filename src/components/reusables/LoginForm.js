@@ -15,14 +15,16 @@ class LoginForm extends Component {
       email: "",
       password: "",
       errors: {},
-      toDashboard: false
+      // toDashboard: this.props.auth.isAuthenticated
     };
+
+
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.auth.isAuthenticated) {
-      this.setState(() => ({ toDashboard: true })) // push user to dashboard when they login
-    }
+    // if (nextProps.auth.isAuthenticated) {
+    //   this.setState(() => ({ toDashboard: true })) // push user to dashboard when they login
+    // }
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -46,7 +48,7 @@ class LoginForm extends Component {
 
   render() {
     const { errors } = this.state;
-    if (this.state.toDashboard === true) {
+    if (this.props.auth.isAuthenticated === true) {
       return <Redirect to={'/profile'} />
     }
     return (
