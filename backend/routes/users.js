@@ -90,7 +90,8 @@ router.post("/login", (req, res) => {
                     (err, token) => {
                         res.json({
                             success: true,
-                            token: "Bearer " + token
+                            token: "Bearer " + token,
+                            userId: user.id
                         });
                     }
                 );
@@ -102,5 +103,12 @@ router.post("/login", (req, res) => {
         });
     });
 });
+
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then(users => res.json(users))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 module.exports = router;
