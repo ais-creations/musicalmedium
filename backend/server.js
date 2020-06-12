@@ -21,10 +21,10 @@ connection.once('open', () => {
     console.log("MongoDB connection established");
 })
 
-app.use(express.static(path.join(__dirname, '../build')))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build'))
-})
+// app.use(express.static(path.join(__dirname, '../build')))
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../build'))
+// })
 
 // Passport middleware
 app.use(passport.initialize());
