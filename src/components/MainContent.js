@@ -14,11 +14,11 @@ const MainContent = () => (
     <Route exact path="/" component={LandingPage}/>
     <Route path="/learn" component={LearnPage}/>
     <Route path="/teach" component={TeachPage}/>
-    <Route path="/profile" component={ProfilePage}/>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}/>
       <Switch>
-          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/profile" component={ProfilePage}/>
+          {/*<PrivateRoute exact path="/dashboard" component={Dashboard} />*/}
       </Switch>
   </Switch>
 )

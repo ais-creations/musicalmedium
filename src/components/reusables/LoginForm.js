@@ -11,6 +11,7 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: "",
       email: "",
       password: "",
       errors: {},
@@ -46,7 +47,7 @@ class LoginForm extends Component {
   render() {
     const { errors } = this.state;
     if (this.state.toDashboard === true) {
-      return <Redirect to='/dashboard'/>
+      return <Redirect to={'/profile'} />
     }
     return (
       <div className="container">

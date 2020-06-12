@@ -1,7 +1,27 @@
 import React, {Component} from 'react'
+import axios from 'axios'
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {logoutUser} from "../../actions/authActions";
 
 class ProfilePage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
   render() {
+    const { user } = this.props.auth;
+    axios.get('http://localhost:4000/users/'+ user.id)
+        .then(res => this.setState(() => ({user: res.data})))
+        .catch(err => console.log(err));
+
     return (
       <main className="page">
         <section className="clean-block about-us">
@@ -14,7 +34,7 @@ class ProfilePage extends Component {
               <div>
                 <img className="rounded-circle" style={{ marginTop: '-70px', border: '2px solid #cccccc' }}
                      src={require("../../assets/img/189315459.jpg")} height="150px"/>
-                <h3 style={{ marginTop: '10px' }}>Radostin Petrov</h3>
+                <h3 style={{ marginTop: '10px' }}>{this.state.user.name}</h3>
                 <p style={{ padding: '20px', paddingBottom: 0, paddingTop: '5px' }}>I am a Certified&nbsp;Classical
                   Guitarist, having taught at the Royal College of Music for 4 years. I have been teaching students
                   remotely for the past 3 months. I am very passionate about music and teaching.</p>
@@ -29,6 +49,26 @@ class ProfilePage extends Component {
                 </a>
               </div>
             </div>
+            <div style={{ height: "75vh" }} className="container valign-wrapper">
+              <div className="row">
+                <div className="col s12 center-align">
+                  <h4>
+                  </h4>
+                  <button
+                      style={{
+                        width: "150px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem"
+                      }}
+                      onClick={this.onLogoutClick}
+                      className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -36,4 +76,16 @@ class ProfilePage extends Component {
   }
 }
 
-export default ProfilePage
+ProfilePage.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(ProfilePage);
+
