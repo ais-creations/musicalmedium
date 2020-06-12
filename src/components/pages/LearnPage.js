@@ -37,12 +37,14 @@ class LearnPage extends Component {
                 </div>
 
                 {/* This is for putting a post in active posts */}
-                {/*<UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"*/}
-                {/*              timeFrame="hour"*/}
-                {/*              keywords={["Vocals", "Pop", "Bass"]}*/}
-                {/*              description="I am a Rock Guitarist keen to improve my singing skills and start a band.*/}
-                {/*               Would ideally like hourly lessons thrice a week"*/}
-                {/*/>*/}
+
+
+                <UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"
+                              timeFrame="hour"
+                              keywords={["Vocals", "Pop", "Bass"]}
+                              description="I am a Rock Guitarist keen to improve my singing skills and start a band.
+                               Would ideally like hourly lessons thrice a week"
+                />
               </div>
             </div>
 
@@ -59,7 +61,7 @@ class LearnPage extends Component {
               <button className="btn btn-primary btn-light" type="button" style={{ marginLeft: '3px' }}>Search</button>
             </div>
 
-            <ProfileCard name="Aahil Mehta" rating="4.7" title="Classical Guitarist" years="5"
+            <ProfileCard name="Radostin Petrov" rating="4.7" title="Classical Guitarist" years="5"
                          keywords={["Guitarist", "Classical", "Professional"]}
                          src={require("../../assets/img/189315459.jpg")}
                          description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
