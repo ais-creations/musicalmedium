@@ -1,32 +1,16 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import "./components/reusables/LoginForm"
-import Login from "./components/reusables/LoginForm";
-import LoginTest from './components/auth/Login';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Register from "./components/auth/Register";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import ProfileCard from "./components/reusables/ProfileCard";
-import LandingPage from "./components/pages/LandingPage";
-import LearnPage from "./components/pages/LearnPage";
-import TeachPage from "./components/pages/TeachPage";
-import ProfilePage from "./components/pages/ProfilePage";
-import LoginPage from "./components/pages/LoginPage";
 import MainContent from "./components/MainContent";
-import { Provider } from "react-redux";
+import {connect} from "react-redux";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
-import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
+import {setCurrentUser, logoutUser} from "./actions/authActions";
+import PropTypes from "prop-types";
+import baseData from "./reducers/baseData";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -47,25 +31,54 @@ if (localStorage.jwtToken) {
   }
 }
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
 
-function App() {
-  return (
-    <div className="App">
-      {/*<Router>*/}
-      {/*  <Switch>*/}
-      {/*    <Route path="/register">*/}
-      {/*      <Register/>*/}
-      {/*    </Route>*/}
-      {/*    <Route path="/logintest">*/}
-      {/*      <LoginTest/>*/}
-      {/*    </Route>*/}
-      {/*  </Switch>*/}
-      {/*</Router>*/}
-      <Header/>
-      <MainContent/>
-      <Footer/>
-    </div>
-  );
+  choice(isAuthenticated) {
+    if (isAuthenticated) {
+      return (
+        <h2>Logged in</h2>
+      )
+    } else {
+      return (
+        <h2>Logged out</h2>
+      )
+    }
+  }
+
+  componentDidMount() {
+    if (!localStorage.getItem('userData')) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header/>
+        <MainContent/>
+        {localStorage.getItem('userData')}
+        <Footer/>
+      </div>
+    );
+  }
 }
 
-export default App;
+App.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(App);

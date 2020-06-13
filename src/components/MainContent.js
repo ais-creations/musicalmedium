@@ -9,18 +9,26 @@ import SignUpPage from "./pages/SignUpPage";
 import PrivateRoute from "./private-route/PrivateRoute";
 import Dashboard from "./dashboard/Dashboard";
 
-const MainContent = () => (
-  <Switch>
-    <Route exact path="/" component={LandingPage}/>
-    <Route path="/learn" component={LearnPage}/>
-    <Route path="/teach" component={TeachPage}/>
-    <Route path="/login" component={LoginPage}/>
-    <Route path="/signup" component={SignUpPage}/>
+class MainContent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
       <Switch>
+        <Route exact path="/" component={LandingPage}/>
+        <Route path="/learn" component={LearnPage}/>
+        <Route path="/teach" component={TeachPage}/>
+        <Route path="/login" component={LoginPage}/>
+        <Route path="/signup" component={SignUpPage}/>
+        <Switch>
           <PrivateRoute exact path="/profile" component={ProfilePage}/>
           {/*<PrivateRoute exact path="/dashboard" component={Dashboard} />*/}
+        </Switch>
       </Switch>
-  </Switch>
-)
+    )
+  }
+}
 
 export default MainContent;

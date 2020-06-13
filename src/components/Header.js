@@ -1,10 +1,10 @@
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import {Collapse, DropdownItem, DropdownMenu, DropdownToggle, NavbarToggler, UncontrolledDropdown} from "reactstrap";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../actions/authActions";
-import axios from "axios";
+import baseData from "../reducers/baseData";
 
 class Header extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Header extends Component {
     this.toggleClose = this.toggleClose.bind(this);
     this.state = {
       isOpen: false,
-      user: {}
+      name: {}
     };
   }
 
@@ -38,8 +38,10 @@ class Header extends Component {
   };
 
   logoutClick = e => {
+    localStorage.setItem('userData', JSON.stringify(baseData));
     this.onLogoutClick(e);
     this.toggle();
+    window.location.reload(false);
   }
 
   choiceSignUpWide(isAuthenticated) {
@@ -68,7 +70,21 @@ class Header extends Component {
     return null
   }
 
-  choiceLoginLogout(isAuthenticated) {
+  choiceChat(isAuthenticated) {
+    if (isAuthenticated) {
+      return (
+        <li className="nav-item" role="presentation">
+          <Link to="/" className="nav-link">
+            <i className="fas fa-comment-alt"/>
+            &nbsp;CHAT
+          </Link>
+        </li>
+      )
+    }
+    return null
+  }
+
+  choiceLoginProfile(isAuthenticated) {
     if (!isAuthenticated) {
       return (
         <li className="nav-item" role="presentation">
@@ -80,38 +96,37 @@ class Header extends Component {
       )
     } else {
       return (
-        <UncontrolledDropdown nav inNavbar className="dropdown">
-          <DropdownToggle nav caret className="dropdown-toggle">
-            <i className="far fa-user-circle"/>
-            &nbsp;{this.state.user.name}
-          </DropdownToggle>
-          <DropdownMenu right className="dropdown-menu-md-left header-dropdown">
-            <DropdownItem className="dropdown-item">
-              <li className="nav-item" role="presentation">
-                <Link to="/profile" className="nav-link">
-                  <i className="far fa-user"/>
-                  &nbsp;PROFILE
+        <div style={{ display: 'inherit' }}>
+          <UncontrolledDropdown style={{ marginRight: '-5%' }} nav inNavbar className="dropdown">
+            <DropdownToggle nav caret className="dropdown-toggle">
+              <i className="far fa-user-circle"/>
+              &nbsp;{this.state.name}
+            </DropdownToggle>
+            <DropdownMenu right className="dropdown-menu-md-left header-dropdown">
+              <DropdownItem className="dropdown-item">
+                <li className="nav-item" role="presentation">
+                  <Link to="/profile" className="nav-link">
+                    <i className="far fa-user"/>
+                    &nbsp;PROFILE
+                  </Link>
+                </li>
+              </DropdownItem>
+              <DropdownItem className="dropdown-item">
+                <Link onClick={this.logoutClick} to="/" className="nav-link">
+                  <i className="fas fa-sign-in-alt"/>
+                  &nbsp;LOG OUT
                 </Link>
-              </li>
-            </DropdownItem>
-            <DropdownItem className="dropdown-item">
-              <Link onClick={this.logoutClick} to="/" className="nav-link">
-                <i className="fas fa-sign-in-alt"/>
-                &nbsp;LOG OUT
-              </Link>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
       )
     }
   }
 
   render() {
-    const { user } = this.props.auth;
-    axios.get('http://localhost:4000/users/' + user.id)
-      .then(res => this.setState(() => ({ user: res.data })))
-      .catch(err => console.log(err));
-    const { isAuthenticated } = this.props.auth;
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    this.state.name = userData.firstname;
 
     return (
       <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
@@ -122,7 +137,7 @@ class Header extends Component {
             Treble
           </Link>
           <div>
-            {this.choiceSignUpTall(isAuthenticated)}
+            {this.choiceSignUpTall(userData.authenticated)}
             <NavbarToggler onBlur={this.toggleClose} onClick={this.toggle}/>
           </div>
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -142,17 +157,18 @@ class Header extends Component {
               <li className="nav-item">
                 <Link to="/teach" className="nav-link">
                   <i className="fas fa-podcast"/>
-                  &nbsp;TEACH
+                  &nbsp;WORK
                 </Link>
               </li>
 
-              {this.choiceLoginLogout(isAuthenticated)}
+              {this.choiceLoginProfile(userData.authenticated)}
+              {this.choiceChat(userData.authenticated)}
               {/*<li className="nav-item" role="presentation">*/}
               {/*  <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>*/}
               {/*</li>*/}
             </ul>
           </Collapse>
-          {this.choiceSignUpWide(isAuthenticated)}
+          {this.choiceSignUpWide(userData.authenticated)}
         </div>
       </nav>
     );

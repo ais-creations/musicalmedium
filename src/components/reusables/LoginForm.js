@@ -5,6 +5,7 @@ import {loginUser} from "../../actions/authActions";
 import classnames from "classnames";
 import Redirect from "react-router-dom/es/Redirect";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 class LoginForm extends Component {
 
@@ -15,6 +16,7 @@ class LoginForm extends Component {
       email: "",
       password: "",
       errors: {},
+      user: {}
       // toDashboard: this.props.auth.isAuthenticated
     };
 
@@ -22,19 +24,33 @@ class LoginForm extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    // if (nextProps.auth.isAuthenticated) {
-    //   this.setState(() => ({ toDashboard: true })) // push user to dashboard when they login
-    // }
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
+    }
+    if (nextProps.auth.isAuthenticated) {
+      // this.setState(() => ({ toDashboard: true })) // push user to dashboard when they login
+      const { user } = nextProps.auth;
+      axios.get('http://localhost:4000/users/' + user.id)
+        .then(res => this.setState(() => ({ user: res.data })))
+        .catch(err => console.log(err));
+      const data = {
+        authenticated: true,
+        userID: user.id,
+        firstname: user.name.split(" ")[0],
+        name: user.name,
+        profile: {}
+      }
+      localStorage.setItem('userData', JSON.stringify(data));
+      window.location.reload(false);
     }
   }
 
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+
   onSubmit = e => {
     e.preventDefault();
     const userData = {
@@ -43,13 +59,13 @@ class LoginForm extends Component {
     };
 
     this.props.loginUser(userData);
-
   };
 
   render() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const { errors } = this.state;
-    if (this.props.auth.isAuthenticated === true) {
-      return <Redirect to={'/profile'} />
+    if (userData.authenticated === true) {
+      return <Redirect to={'/profile'}/>
     }
     return (
       <div className="container">
@@ -124,6 +140,7 @@ LoginForm.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
