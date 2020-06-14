@@ -1,9 +1,7 @@
 const express = require('express');
-const cors    = require('cors');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require("passport");
-
-
 
 require('dotenv').config();
 
@@ -14,11 +12,11 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 );
 const connection = mongoose.connection;
 connection.once('open', () => {
-    console.log("MongoDB connection established");
+  console.log("MongoDB connection established");
 })
 
 // app.use(express.static(path.join(__dirname, '../build')))
@@ -35,8 +33,26 @@ const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 
 
-
-
 app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
+  console.log(`Server running on port: ${port}`);
 });
+//
+// let PythonShell = require('python-shell');
+//
+// // Python function is executed whenever url is of the form localhost:3000/name
+// app.get('/search', callGetAPIResults);
+//
+// function callGetAPIResults(req, res) {
+//   let options = {
+//     args:
+//       [
+//         req.query.re, // starting funds
+//         req.query.size, // (initial) wager size
+//       ]
+//   }
+//
+//   PythonShell.run('./search.py', options, function (err, data) {
+//     if (err) res.send(err);
+//     res.send(data.toString())
+//   });
+// }
