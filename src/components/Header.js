@@ -126,7 +126,9 @@ class Header extends Component {
 
   render() {
     const userData = JSON.parse(localStorage.getItem('userData'));
-    this.state.name = userData.firstname;
+    if (userData) {
+      this.state.name = userData.firstname;
+    }
 
     return (
       <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
