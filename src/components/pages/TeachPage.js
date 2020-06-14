@@ -1,38 +1,19 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
 class TeachPage extends Component {
   render() {
     return (
       <main className="page pricing-table-page">
-        <section
-          className="clean-block clean-pricing dark"
-          style={{ backgroundColor: "rgb(255,255,255)" }}
-        >
+        <section className="clean-block clean-pricing dark" style={{ backgroundColor: "rgb(255,255,255)" }}>
           <div className="container" style={{ paddingTop: "30px" }}>
-            <div
-              className="block-heading"
-              style={{ marginBottom: "0px", paddingTop: "0px" }}
-            >
-              <h2
-                className="text-info"
-                style={{ fontSize: "24px", marginBottom: "20px" }}
-              >
+            <div className="block-heading" style={{ marginBottom: "0px", paddingTop: "0px" }}>
+              <h2 className="text-info" style={{ fontSize: "24px", marginBottom: "20px" }}>
                 Find Jobs
               </h2>
             </div>
-            <div
-              className="search-container"
-              style={{ display: "flex", marginBottom: "10px" }}
-            >
-              <i
-                className="fa fa-search"
-                style={{
-                  color: "rgb(0,0,0)",
-                  marginTop: "10px",
-                  marginRight: "10px",
-                  marginLeft: "-10px",
-                }}
-              />
+            <div className="search-container" style={{ display: "flex", marginBottom: "10px" }}>
+              <i className="fa fa-search"
+                 style={{ color: "rgb(0,0,0)", marginTop: "10px", marginRight: "10px", marginLeft: "-10px", }}/>
               <input
                 type="text"
                 className="form-control"
@@ -40,11 +21,7 @@ class TeachPage extends Component {
                 placeholder="Search..."
                 style={{ marginTop: 0, marginRight: "0px" }}
               />
-              <button
-                className="btn btn-primary btn-light"
-                type="button"
-                style={{ marginLeft: "3px" }}
-              >
+              <button className="btn btn-primary btn-light" type="button" style={{ marginLeft: "3px" }}>
                 Search
               </button>
             </div>
@@ -65,7 +42,7 @@ class TeachPage extends Component {
                   />
                 </div>
                 <div className="details-row">
-                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon" />
+                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon"/>
                   $10-$15 per hour
                 </div>
                 <p className="details-row descPart loud">
@@ -113,7 +90,7 @@ class TeachPage extends Component {
                   />
                 </div>
                 <div className="details-row">
-                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon" />
+                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon"/>
                   $20-$30 per hour
                 </div>
                 <p className="details-row descPart loud">
@@ -161,7 +138,7 @@ class TeachPage extends Component {
                   />
                 </div>
                 <div className="details-row">
-                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon" />
+                  <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon"/>
                   $15-$20 per hour
                 </div>
                 <p className="details-row descPart loud">
