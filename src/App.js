@@ -11,6 +11,7 @@ import setAuthToken from "./utils/setAuthToken";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import PropTypes from "prop-types";
 import baseData from "./reducers/baseData";
+import {black} from "color-name";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -51,13 +52,11 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (!localStorage.getItem('userData')) {
+  render() {
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
       localStorage.setItem('userData', JSON.stringify(baseData));
     }
-  }
-
-  render() {
     return (
       <div className="App">
         <Header/>

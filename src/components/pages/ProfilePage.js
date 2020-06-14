@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
+import baseData from "../../reducers/baseData";
 
 class ProfilePage extends Component {
 
@@ -19,7 +20,11 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+      userData = JSON.parse(localStorage.getItem('userData'));
+    }
     this.state.name = userData.name;
 
     return (
