@@ -6,6 +6,7 @@ import classnames from "classnames";
 import Redirect from "react-router-dom/es/Redirect";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import baseData from "../../reducers/baseData";
 
 class LoginForm extends Component {
 
@@ -62,7 +63,11 @@ class LoginForm extends Component {
   };
 
   render() {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+      userData = JSON.parse(localStorage.getItem('userData'));
+    }
     const { errors } = this.state;
     if (userData.authenticated === true) {
       return <Redirect to={'/profile'}/>
