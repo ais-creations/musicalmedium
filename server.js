@@ -1,10 +1,7 @@
 const express = require('express');
-<<<<<<< HEAD
+
 const cors    = require('cors');
 const path     = require('path');
-=======
-const cors = require('cors');
->>>>>>> 44615e0a7da73c9073cfd85ef40688041f0587b7
 const mongoose = require('mongoose');
 const passport = require("passport");
 
@@ -24,9 +21,9 @@ connection.once('open', () => {
   console.log("MongoDB connection established");
 })
 
-app.use(express.static('../build'))
+app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 app.get('*', (req, res) => {
-    res.sendFile('../build')
+    res.sendFile(path.resolve(__dirname, '/client', 'build'));
 })
 
 // Passport middleware
