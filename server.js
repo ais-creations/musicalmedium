@@ -1,5 +1,4 @@
 const express = require('express');
-
 const cors    = require('cors');
 const path     = require('path');
 const mongoose = require('mongoose');
@@ -34,7 +33,9 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 const usersRouter = require('./routes/users');
+const learnPostsRouter = require('./routes/learnPost');
 app.use('/users', usersRouter);
+app.use('/learnPosts', learnPostsRouter);
 
 
 app.listen(port, () => {

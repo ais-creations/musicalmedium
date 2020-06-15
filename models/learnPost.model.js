@@ -1,10 +1,11 @@
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const LearnPostScheme = new Schema({
-  // userID: {
-  //   type: String,
-  //   required: true
-  // },
+const LearnPostSchema = new Schema({
+  userID: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -33,5 +34,5 @@ const LearnPostScheme = new Schema({
   timestamps: true,
 });
 
-const User = mongoose.model('User', UserSchema);
-module.exports = User;
+const LearnPost = mongoose.model('LearnPost', LearnPostSchema);
+module.exports = LearnPost;

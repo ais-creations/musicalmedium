@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ProfileCard from "../reusables/ProfileCard";
 import UserPostCard from "../reusables/UserPostCard";
 import Popup from "../reusables/Popup";
+import axios from 'axios';
 
 class LearnPage extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class LearnPage extends Component {
 
     this.togglePopup = this.togglePopup.bind(this);
     this.state = {
+      learnPosts: {},
       showPopup: false
     };
   }
@@ -17,6 +19,11 @@ class LearnPage extends Component {
     this.setState({
       showPopup: !this.state.showPopup
     });
+  }
+
+  getUserData() {
+       axios.get('http://localhost:4000/learnPosts/').
+            then(res => this.setState({learnPosts: res.data}));
   }
 
   render() {
@@ -37,7 +44,18 @@ class LearnPage extends Component {
                 </div>
 
                 {/* This is for putting a post in active posts */}
-
+                {this.getUserData()}
+                {
+                  Object.entries(this.state.learnPosts).map(([key, post]) => {
+                    return (
+                        <UserPostCard title={post.title} currency={post.currency} minBudget={post.minBudget} maxBudget={post.maxBudget}
+                                      timeFrame="hour"
+                                      keywords={["Vocals", "Pop", "Bass"]}
+                                      description={post.description}
+                        />
+                  )
+                  })
+                }
 
                 <UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"
                               timeFrame="hour"
