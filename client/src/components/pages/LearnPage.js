@@ -13,6 +13,7 @@ class LearnPage extends Component {
       learnPosts: {},
       showPopup: false
     };
+    this.getUserData();
   }
 
   togglePopup() {
@@ -44,9 +45,9 @@ class LearnPage extends Component {
                 </div>
 
                 {/* This is for putting a post in active posts */}
-                {this.getUserData()}
                 {
                   Object.entries(this.state.learnPosts).map(([key, post]) => {
+                    console.log(post);
                     return (
                         <UserPostCard title={post.title} currency={post.currency} minBudget={post.minBudget} maxBudget={post.maxBudget}
                                       timeFrame="hour"

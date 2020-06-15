@@ -76,8 +76,7 @@ class Popup extends React.Component {
               <div style={{ display: 'flex' }}>
                 <label style={{ fontSize: '14px', marginRight: '20px', paddingTop: '7px' }}>Budget</label>
                 <label style={{ fontSize: '12px', paddingTop: '10px', marginRight: '5px' }}>Currency</label>
-                <select onChange={this.onChange} value={this.state.currency}
-                        className={"form-control item"}
+                <select className={"form-control item"}
                         id="currency" style={{ fontSize: '12px', marginRight: '10px', width: '50px', padding: '0px' }}>
                   <option value="£" selected>£</option>
                   <option value="$">$</option>
