@@ -3,17 +3,49 @@ import ProfileCard from "../reusables/ProfileCard";
 import UserPostCard from "../reusables/UserPostCard";
 import Popup from "../reusables/Popup";
 import axios from 'axios';
+import {Spinner} from "reactstrap";
+import baseData from "../../reducers/baseData";
 
 class LearnPage extends Component {
   constructor(props) {
     super(props);
 
     this.togglePopup = this.togglePopup.bind(this);
+    this.formSubmit = this.formSubmit.bind(this);
+    this.reloadUserData = this.reloadUserData.bind(this);
+
     this.state = {
       learnPosts: {},
-      showPopup: false
+      postsLoading: true,
+      showPopup: false,
+      changed: false,
+      userID: ""
     };
-    this.getUserData();
+  }
+
+  componentDidMount() {
+    if (this.state.postsLoading) {
+      // this.updateStateLocal();
+      this.reloadUserData();
+    }
+  }
+
+  updateStateLocal() {
+    const learnPosts = JSON.parse(localStorage.getItem('learnPosts'));
+
+    if (learnPosts !== null && !this.state.changed) {
+      this.setState({
+        postsLoading: false,
+        learnPosts: learnPosts
+      })
+    }
+  }
+
+  formSubmit() {
+    this.setState({
+      postsLoading: true
+    })
+    // this.updateStateLocal();
   }
 
   togglePopup() {
@@ -22,21 +54,70 @@ class LearnPage extends Component {
     });
   }
 
-  getUserData() {
-       axios.get('http://localhost:4000/learnPosts/').
-            then(res => this.setState({learnPosts: res.data}));
+  reloadUserData() {
+    this.setState({
+      postsLoading: true
+    })
+    axios.get('http://localhost:4000/learnPosts/').then(res => this.setState({
+      postsLoading: false,
+      learnPosts: res.data
+    }));
+    // localStorage.setItem('learnPosts', JSON.stringify(this.state.learnPosts));
+  }
+
+  getPosts() {
+    if (this.state.postsLoading) {
+      return (
+        <Spinner size="sm" color="primary"/>
+      )
+    }
+    let i = 0;
+    return (
+      <div>
+        {Object.entries(this.state.learnPosts).map(([key, post]) => {
+          console.log(post);
+          if (post.userID === this.state.userID) {
+            i++;
+            return (
+              <UserPostCard title={post.title} currency={post.currency} minBudget={post.minBudget}
+                            maxBudget={post.maxBudget}
+                            timeFrame="hour"
+                            keywords={[post.keywords[0], post.keywords[1], post.keywords[2]]}
+                            description={post.description}/>
+            )
+          }
+          return null;
+        })}
+        {i === 0 ? (<center style={{ paddingTop: "10px" }}> '{this.state.userID}' No currently active posts</center>) : null}
+      </div>
+    )
   }
 
   render() {
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+      userData = JSON.parse(localStorage.getItem('userData'));
+    }
+    this.state.userID = userData.userID;
+    const isAuthenticated = userData.authenticated
+
     return (
       <main className="page">
         <section className="clean-block features">
           <div className="container" style={{ paddingTop: '30px' }}>
-            <div>
+            <div style={{
+              display: (isAuthenticated ? 'inherit' : 'none'),
+              textAlign: (this.state.postsLoading ? 'center' : 'left')
+            }}>
               <div className="post-holder" style={{ marginRight: 0, marginBottom: '15px' }}>
                 <button className="btn btn-primary" onClick={this.togglePopup}
                         type="button" style={{ margin: 0, marginBottom: 0 }}>Post
                   Requirement
+                </button>
+                <button className="btn btn-info" onClick={this.reloadUserData}
+                        type="button" style={{ position: 'absolute', right: '10%', width: '40px'}}>
+                  <i style={{fontSize: '14px'}} className="fas fa-sync-alt"/>
                 </button>
               </div>
               <div style={{ marginBottom: '30px' }}>
@@ -44,26 +125,15 @@ class LearnPage extends Component {
                   <h2 className="text-info" style={{ fontSize: '24px', marginBottom: '0px' }}>Active Posts</h2>
                 </div>
 
-                {/* This is for putting a post in active posts */}
-                {
-                  Object.entries(this.state.learnPosts).map(([key, post]) => {
-                    console.log(post);
-                    return (
-                        <UserPostCard title={post.title} currency={post.currency} minBudget={post.minBudget} maxBudget={post.maxBudget}
-                                      timeFrame="hour"
-                                      keywords={["Vocals", "Pop", "Bass"]}
-                                      description={post.description}
-                        />
-                  )
-                  })
-                }
 
-                <UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"
-                              timeFrame="hour"
-                              keywords={["Vocals", "Pop", "Bass"]}
-                              description="I am a Rock Guitarist keen to improve my singing skills and start a band.
-                               Would ideally like hourly lessons thrice a week"
-                />
+                {/* This is for putting a post in active posts */}
+                {this.getPosts()}
+                {/*<UserPostCard title="Singing teacher wanted for Bass Vocals" currency="$" minBudget="10" maxBudget="15"*/}
+                {/*              timeFrame="hour"*/}
+                {/*              keywords={["Vocals", "Pop", "Bass"]}*/}
+                {/*              description="I am a Rock Guitarist keen to improve my singing skills and start a band.*/}
+                {/*               Would ideally like hourly lessons thrice a week"*/}
+                {/*/>*/}
               </div>
             </div>
 
@@ -95,7 +165,7 @@ class LearnPage extends Component {
             />
           </div>
         </section>
-        {this.state.showPopup ? <Popup closePopup={this.togglePopup.bind(this)}/> : null}
+        {this.state.showPopup ? <Popup formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
       </main>
     )
   }

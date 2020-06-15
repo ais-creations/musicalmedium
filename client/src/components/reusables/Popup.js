@@ -38,8 +38,13 @@ class Popup extends React.Component {
       maxBudget: this.state.maxBudget
     };
 
+    // let learnPosts = localStorage.getItem('learnPosts').concat(learnPost);
+    // localStorage.setItem('learnPosts', learnPosts);
+
     axios.post('/learnPosts/add', learnPost)
         .then(res => console.log(res.data))
+
+    this.props.formSubmit();
     this.props.closePopup();
   };
 

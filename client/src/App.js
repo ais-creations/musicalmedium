@@ -53,15 +53,15 @@ class App extends React.Component {
   }
 
   render() {
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData === null || !userData.authenticated) {
-      localStorage.setItem('userData', JSON.stringify(baseData));
-    }
+    // let userData = JSON.parse(localStorage.getItem('userData'));
+    // if (userData === null || !userData.authenticated) {
+    //   localStorage.setItem('userData', JSON.stringify(baseData));
+    // }
     return (
       <div className="App">
         <Header/>
         <MainContent/>
-        {localStorage.getItem('userData')}
+        {/*{localStorage.getItem('userData')}*/}
         <Footer/>
       </div>
     );

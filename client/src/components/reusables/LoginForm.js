@@ -44,6 +44,7 @@ class LoginForm extends Component {
         profile: {}
       }
       localStorage.setItem('userData', JSON.stringify(data));
+      // localStorage.setItem('learnPosts', null);
       window.location.reload(false);
     }
   }
