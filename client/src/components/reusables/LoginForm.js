@@ -33,7 +33,7 @@ class LoginForm extends Component {
     if (nextProps.auth.isAuthenticated) {
       // this.setState(() => ({ toDashboard: true })) // push user to dashboard when they login
       const { user } = nextProps.auth;
-      axios.get('http://localhost:4000/users/' + user.id)
+      axios.get('users/' + user.id)
         .then(res => this.setState(() => ({ user: res.data })))
         .catch(err => console.log(err));
       const data = {

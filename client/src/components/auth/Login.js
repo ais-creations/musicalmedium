@@ -19,7 +19,7 @@ class LoginTest extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        axios.post('http://localhost:4000/users/login', userData)
+        axios.post('users/login', userData)
             .then(res => console.log(res.data))
         console.log(userData);
     };
