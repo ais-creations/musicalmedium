@@ -1,19 +1,33 @@
 import React, {Component} from "react";
+import axios from 'axios';
 
 class UserPostCard extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
+    this.deletePost = this.deletePost.bind(this);
     this.state = {
       removing: false,
       hidden: false
     }
   }
 
+  deletePost(id) {
+    axios.delete('learnPosts/'+id)
+        .then(response => { console.log(response.data)});
+
+    this.setState({
+      removing: false,
+      hidden: true
+    })
+  }
+
   toggle() {
     // TODO: Delete from database, activating load state (removing) and then activating hidden when load is finished
     this.setState({hidden:true});
     this.setState({removing: true});
+
+    this.deletePost(this.props.postKey);
 
     // axios.delete(delete user id (this.props.post_id passed from above?), setState(removing: false, hidden: true)))
     // removing state is so we can add overlay to card later to prevent user from pressing random shit and breaking it

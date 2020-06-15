@@ -73,13 +73,13 @@ class LearnPage extends Component {
     }
     let i = 0;
     return (
+
       <div>
         {Object.entries(this.state.learnPosts).map(([key, post]) => {
-          console.log(post);
           if (post.userID === this.state.userID) {
             i++;
             return (
-              <UserPostCard title={post.title} currency={post.currency} minBudget={post.minBudget}
+              <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                             maxBudget={post.maxBudget}
                             timeFrame="hour"
                             keywords={[post.keywords[0], post.keywords[1], post.keywords[2]]}
