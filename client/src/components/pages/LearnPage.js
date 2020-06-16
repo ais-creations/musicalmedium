@@ -111,7 +111,7 @@ class LearnPage extends Component {
   getUsers() {
     if (this.state.usersLoading) {
       return (
-        <Spinner style={{ marginBottom: '100%' }} size="sm" color="primary"/>
+        <Spinner style={{ marginBottom: '50%' }} size="sm" color="primary"/>
       )
     }
     let i = 0;
@@ -132,7 +132,7 @@ class LearnPage extends Component {
           }
           return null;
         })}
-        {i === 0 ? (<center style={{ paddingTop: "10px", marginBottom: "80%" }}>Couldn't find any users with query "{this.state.searchQuery}"</center>) : null}
+        {i === 0 ? (<center style={{ paddingTop: "10px", marginBottom: "50%" }}>Couldn't find "{this.state.searchQuery}"</center>) : null}
       </div>
     )
   }
