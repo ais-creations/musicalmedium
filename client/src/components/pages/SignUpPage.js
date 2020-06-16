@@ -15,6 +15,7 @@ class SignUpPage extends Component {
       email: "",
       password: "",
       password2: "",
+      description: "",
       errors: {}
     };
   }
@@ -91,6 +92,12 @@ class SignUpPage extends Component {
                     invalid: errors.password2
                   })} type="password" id="password2" style={{lineHeight: '14px'}} />
                   <span className="error-text">{errors.password2}</span>
+                </div>
+                <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Profile Description</label>
+                  <textarea onChange={this.onChange}
+                         value={this.state.description}
+                          className={"form-control"} id="description" style={{lineHeight: '14px'}} />
+                  {/*<span className="error-text">{errors.password2}</span>*/}
                 </div>
                 <div className="form-group">
                   <div className="d-flex justify-content-between">
