@@ -9,7 +9,7 @@ class TeachPage extends Component {
   constructor(props) {
     super(props);
 
-    // this.reloadUserData = this.reloadUserData.bind(this);
+    this.reloadUserData = this.reloadUserData.bind(this);
 
     this.state = {
       posts: {},

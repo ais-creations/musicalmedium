@@ -13,6 +13,7 @@ class LearnPage extends Component {
     this.togglePopup = this.togglePopup.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
     this.reloadPostData = this.reloadPostData.bind(this);
+    this.reloadUserData = this.reloadUserData.bind(this);
 
     this.state = {
       learnPosts: {},
@@ -118,7 +119,7 @@ class LearnPage extends Component {
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
-          if (user.id !== this.state.userID && (user.name !== null && user.name.toLowerCase().includes(this.state.searchQuery))) {
+          if (user.id !== this.state.userID && user.name.toLowerCase().includes(this.state.searchQuery)) {
             i++;
             return (
               <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
@@ -194,7 +195,7 @@ class LearnPage extends Component {
                      style={{ marginTop: 0, marginRight: '0px' }} onChange={this.onChange} id="searchBox"
                      value={this.state.searchBox}/>
               <button className="btn btn-primary btn-light"
-                      onClick={this.reloadUserData.bind(this)}
+                      onClick={this.reloadUserData}
                       type="submit" style={{ marginLeft: '3px' }}>Search
               </button>
             </div>
