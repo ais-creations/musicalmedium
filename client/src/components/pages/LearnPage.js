@@ -89,6 +89,7 @@ class LearnPage extends Component {
       )
     }
     let i = 0;
+    console.log(JSON.stringify(this.state.learnPosts))
     return (
       <div>
         {Object.entries(this.state.learnPosts).map(([key, post]) => {
@@ -98,9 +99,10 @@ class LearnPage extends Component {
               <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                             maxBudget={post.maxBudget}
                             timeFrame="hour"
-                            keywords={post.keywords.filter(v => v !== "")}
+                            keywords={post.keywords}
                             description={post.description}/>
             )
+            // /*.filter(v => v !== "")*/
           }
           return null;
         })}
@@ -116,10 +118,12 @@ class LearnPage extends Component {
       )
     }
     let i = 0;
+    console.log(JSON.stringify(this.state.users))
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
-          if (user.id !== this.state.userID && user.name.includes(this.state.searchQuery)) {
+          // && user.name.toLowerCase().includes(this.state.searchQuery)
+          if (user.id !== this.state.userID) {
             i++;
             return (
               <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"

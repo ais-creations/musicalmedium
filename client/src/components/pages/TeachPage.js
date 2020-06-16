@@ -45,6 +45,7 @@ class TeachPage extends Component {
       )
     }
     let i = 0;
+    console.log(JSON.stringify(this.state.posts))
     return (
       <div>
         {Object.entries(this.state.posts).map(([key, post]) => {
@@ -54,11 +55,12 @@ class TeachPage extends Component {
               <PostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                         maxBudget={post.maxBudget}
                         timeFrame="hour"
-                        keywords={post.keywords.filter(v => v !== "")}
+                        keywords={post.keywords}
                         description={post.description}
                         buttonClick={this.contact.bind(this)} buttonText="Contact"/>
             )
           }
+          ///*.filter(v => v !== "")*/
           return null;
         })}
         {i === 0 ? (<center style={{ paddingTop: "10px" }}>No currently active posts</center>) : null}
