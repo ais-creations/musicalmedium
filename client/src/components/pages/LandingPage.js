@@ -12,7 +12,7 @@ class LandingPage extends Component {
           <div className="text">
             <h2>Connecting musicians around the world</h2>
             <p>Treble is a platform that allows all musicians find or become musical mentors</p>
-            <Link to={'/'}><button className="btn btn-outline-light btn-lg" type="button">Learn More</button></Link>
+            {/*<button onClick={window.scrollTo(0, 100)} className="btn btn-outline-light btn-lg" type="button">Learn More</button>*/}
           </div>
         </section>
         <section className="clean-block clean-info dark">
