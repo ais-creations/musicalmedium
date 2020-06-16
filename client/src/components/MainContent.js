@@ -24,6 +24,7 @@ class MainContent extends React.Component {
         <Route path="/signup" component={SignUpPage}/>
         <Switch>
           <PrivateRoute exact path="/profile" component={ProfilePage}/>
+          <PrivateRoute exact path="/chat" component={ChatPage}/>
           {/*<PrivateRoute exact path="/dashboard" component={Dashboard} />*/}
         </Switch>
       </Switch>
