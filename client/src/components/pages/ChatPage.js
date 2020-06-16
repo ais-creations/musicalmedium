@@ -10,8 +10,7 @@ class ChatPage extends Component {
                     color: 'rgba(44,49,61,0.85)'
                 }}>
                     <div className="text">
-                        <h2>Connecting musicians around the world</h2>
-                        <p>Treble is a platform that allows all musicians find or become musical mentors</p>
+                        <h2>On Chat Page</h2>
                         <Link to={'/'}><button className="btn btn-outline-light btn-lg" type="button">Learn More</button></Link>
                     </div>
                 </section>
@@ -20,4 +19,4 @@ class ChatPage extends Component {
     }
 }
 
-export default LandingPage
+export default ChatPage

@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PrivateRoute from "./private-route/PrivateRoute";
 import Dashboard from "./dashboard/Dashboard";
+import ChatPage from "./pages/ChatPage";
+import Redirect from "react-router-dom/es/Redirect";
 
 class MainContent extends React.Component {
   constructor(props) {

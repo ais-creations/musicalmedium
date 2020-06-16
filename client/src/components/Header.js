@@ -74,7 +74,7 @@ class Header extends Component {
     if (isAuthenticated) {
       return (
         <li className="nav-item" role="presentation">
-          <Link to="/" className="nav-link">
+          <Link to="/chat" className="nav-link">
             <i className="fas fa-comment-alt"/>
             &nbsp;CHAT
           </Link>
