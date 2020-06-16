@@ -39,7 +39,7 @@ router.post('/add', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     LearnPost.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Exercise deleted'))
+        .then(() => res.json('Post deleted'))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
