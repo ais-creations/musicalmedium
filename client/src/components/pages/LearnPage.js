@@ -118,7 +118,7 @@ class LearnPage extends Component {
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
-          if (user.id !== this.state.userID && user.name.toLowerCase().includes(this.state.searchQuery)) {
+          if (user.id !== this.state.userID && (user.name !== null && user.name.toLowerCase().includes(this.state.searchQuery))) {
             i++;
             return (
               <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
