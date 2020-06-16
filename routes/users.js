@@ -110,5 +110,11 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.get('/', (req, res) => {
+    User.find()
+      .then(posts => res.json(posts))
+      .catch(err => res.status(400).json('Error: ' + err));
+})
+
 
 module.exports = router;

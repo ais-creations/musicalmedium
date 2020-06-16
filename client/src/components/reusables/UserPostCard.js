@@ -43,7 +43,6 @@ class UserPostCard extends Component {
             <a href="#" className="providerNameLink provider-name loud ellipsis_line fontSize16 ">
               <span>{this.props.title}</span>
             </a>
-            <input type="hidden" name="branchId" className="needFromBranchId" defaultValue={1837798}/>
           </div>
           <div className="details-row">
             <span className="icon-briefcase fontSize22 marginTop2 provider-info-icon"/>

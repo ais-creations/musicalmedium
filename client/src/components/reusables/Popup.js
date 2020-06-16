@@ -13,8 +13,10 @@ class Popup extends React.Component {
     this.state = {
       title: "",
       description: "",
-      keywords: new Array(3),
-      currency: String,
+      keyword1: "",
+      keyword2: "",
+      keyword3: "",
+      currency: "",
       minBudget: Number,
       maxBudget: Number,
       errors: {}
@@ -32,7 +34,7 @@ class Popup extends React.Component {
       userID: JSON.parse(localStorage.getItem('userData')).userID,
       title: this.state.title,
       description: this.state.description,
-      keywords: this.state.keywords,
+      keywords: [this.state.keyword1, this.state.keyword2, this.state.keyword3],
       currency: this.state.currency,
       minBudget: this.state.minBudget,
       maxBudget: this.state.maxBudget
@@ -42,7 +44,7 @@ class Popup extends React.Component {
     // localStorage.setItem('learnPosts', learnPosts);
 
     axios.post('/learnPosts/add', learnPost)
-        .then(res => console.log(res.data))
+      .then(res => console.log(res.data))
 
     this.props.formSubmit();
     this.props.closePopup();
@@ -53,7 +55,7 @@ class Popup extends React.Component {
     if (userData === null || !userData.authenticated) {
       localStorage.setItem('userData', JSON.stringify(baseData));
       userData = JSON.parse(localStorage.getItem('userData'));
-      return <Redirect to={'login'} />
+      return <Redirect to={'login'}/>
     }
 
     const { errors } = this.state;
@@ -75,7 +77,7 @@ class Popup extends React.Component {
               <label htmlFor="email" style={{ fontSize: '14px' }}>Description</label>
               <textarea onChange={this.onChange} value={this.state.description}
                         className={"form-control item"}
-                        id="description" style={{ fontSize: '14px', height: '100px'}}/>
+                        id="description" style={{ fontSize: '14px', height: '100px' }}/>
             </div>
             <div className="form-group">
               <div style={{ display: 'flex' }}>
@@ -99,15 +101,15 @@ class Popup extends React.Component {
               <div className="form-group">
                 <label htmlFor="email" style={{ fontSize: '14px' }}>Tags</label>
                 <div style={{ display: 'flex' }}>
-                  <input onChange={this.onChange} value={this.state.keywords[0]}
+                  <input onChange={this.onChange} value={this.state.keyword1}
                          className={"form-control item"}
-                         id="keywords[0]" style={{ fontSize: '12px', marginRight: '10px' }}/>
-                  <input onChange={this.onChange} value={this.state.keywords[1]}
+                         id="keyword1" style={{ fontSize: '12px', marginRight: '10px' }}/>
+                  <input onChange={this.onChange} value={this.state.keyword2}
                          className={"form-control item"}
-                         id="keywords[1]" style={{ fontSize: '12px', marginRight: '10px' }}/>
-                  <input onChange={this.onChange} value={this.state.keywords[2]}
+                         id="keyword2" style={{ fontSize: '12px', marginRight: '10px' }}/>
+                  <input onChange={this.onChange} value={this.state.keyword3}
                          className={"form-control item"}
-                         id="keywords[2]" style={{ fontSize: '14px' }}/>
+                         id="keyword3" style={{ fontSize: '14px' }}/>
                 </div>
               </div>
             </div>
@@ -130,5 +132,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps
+  mapStateToProps
 )(Popup);

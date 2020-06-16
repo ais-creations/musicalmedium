@@ -12,11 +12,13 @@ class LearnPage extends Component {
 
     this.togglePopup = this.togglePopup.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
-    this.reloadUserData = this.reloadUserData.bind(this);
+    this.reloadPostData = this.reloadPostData.bind(this);
 
     this.state = {
       learnPosts: {},
+      users: {},
       postsLoading: true,
+      usersLoading: true,
       showPopup: false,
       changed: false,
       userID: ""
@@ -25,27 +27,18 @@ class LearnPage extends Component {
 
   componentDidMount() {
     if (this.state.postsLoading) {
-      // this.updateStateLocal();
+      this.reloadPostData();
+    }
+    if (this.state.usersLoading) {
       this.reloadUserData();
     }
   }
 
-  updateStateLocal() {
-    const learnPosts = JSON.parse(localStorage.getItem('learnPosts'));
-
-    if (learnPosts !== null && !this.state.changed) {
-      this.setState({
-        postsLoading: false,
-        learnPosts: learnPosts
-      })
-    }
+  formSubmit() {
+    // this.reloadUserData();
   }
 
-  formSubmit() {
-    this.setState({
-      postsLoading: true
-    })
-    // this.updateStateLocal();
+  contact(userID) {
   }
 
   togglePopup() {
@@ -54,13 +47,24 @@ class LearnPage extends Component {
     });
   }
 
-  reloadUserData() {
+  reloadPostData() {
     this.setState({
       postsLoading: true
     })
     axios.get('http://localhost:4000/learnPosts/').then(res => this.setState({
       postsLoading: false,
       learnPosts: res.data
+    }));
+    // localStorage.setItem('learnPosts', JSON.stringify(this.state.learnPosts));
+  }
+
+  reloadUserData() {
+    this.setState({
+      usersLoading: true
+    })
+    axios.get('http://localhost:4000/users/').then(res => this.setState({
+      usersLoading: false,
+      users: res.data
     }));
     // localStorage.setItem('learnPosts', JSON.stringify(this.state.learnPosts));
   }
@@ -73,7 +77,6 @@ class LearnPage extends Component {
     }
     let i = 0;
     return (
-
       <div>
         {Object.entries(this.state.learnPosts).map(([key, post]) => {
           if (post.userID === this.state.userID) {
@@ -82,14 +85,38 @@ class LearnPage extends Component {
               <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                             maxBudget={post.maxBudget}
                             timeFrame="hour"
-                            keywords={[post.keywords[0], post.keywords[1], post.keywords[2]]}
+                            keywords={post.keywords.filter(v => v !== "")}
                             description={post.description}/>
             )
           }
           return null;
         })}
-        {i === 0 ? (<center style={{ paddingTop: "10px" }}> '{this.state.userID}' No currently active posts</center>) : null}
+        {i === 0 ? (<center style={{ paddingTop: "10px" }}>No currently active posts</center>) : null}
       </div>
+    )
+  }
+
+  getUsers() {
+    if (this.state.usersLoading) {
+      return (
+        <Spinner size="sm" color="primary"/>
+      )
+    }
+    return (
+      Object.entries(this.state.users).map(([key, user]) => {
+        if (user.id !== this.state.userID) {
+          return (
+            <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
+                         keywords={["Guitarist", "Classical", "Professional"]}
+                         src={require("../../assets/img/189315459.jpg")}
+                         description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
+                  for 4 years. I have been teaching students remotely for the past 3 months. I am..."
+                         buttonClick={this.contact.bind(this)}
+            />
+          )
+        }
+        return null;
+      })
     )
   }
 
@@ -115,9 +142,9 @@ class LearnPage extends Component {
                         type="button" style={{ margin: 0, marginBottom: 0 }}>Post
                   Requirement
                 </button>
-                <button className="btn btn-info" onClick={this.reloadUserData}
-                        type="button" style={{ position: 'absolute', right: '10%', width: '40px'}}>
-                  <i style={{fontSize: '14px'}} className="fas fa-sync-alt"/>
+                <button className="btn btn-info" onClick={this.reloadPostData}
+                        type="button" style={{ position: 'absolute', right: '10%', width: '40px' }}>
+                  <i style={{ fontSize: '14px' }} className="fas fa-sync-alt"/>
                 </button>
               </div>
               <div style={{ marginBottom: '30px' }}>
@@ -150,19 +177,22 @@ class LearnPage extends Component {
               <button className="btn btn-primary btn-light" type="button" style={{ marginLeft: '3px' }}>Search</button>
             </div>
 
-            <ProfileCard name="Radostin Petrov" rating="4.7" title="Classical Guitarist" years="5"
-                         keywords={["Guitarist", "Classical", "Professional"]}
-                         src={require("../../assets/img/189315459.jpg")}
-                         description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
-                  for 4 years. I have been teaching students remotely for the past 3 months. I am..."
-            />
-            <ProfileCard name="Indip Niroula" rating="5.0" title="Tenor Vocalist" years="15"
-                         keywords={["Vocalist", "Tenor", "Pianist", "Trinity Music", "GOAT"]}
-                         src={require("../../assets/img/273509.jpg")}
-                         description="I am a Tenor singer and pianist with a passion for teaching.
-                  I have been teaching music for 15 years. I have experience teaching students taking grades 1
-                  through... "
-            />
+            {/*<ProfileCard name="Radostin Petrov" rating="4.7" title="Classical Guitarist" years="5"*/}
+            {/*             keywords={["Guitarist", "Classical", "Professional"]}*/}
+            {/*             src={require("../../assets/img/189315459.jpg")}*/}
+            {/*             description="I am a Certified Classical Guitarist, having taught at the Royal College of Music*/}
+            {/*      for 4 years. I have been teaching students remotely for the past 3 months. I am..."*/}
+            {/*/>*/}
+            {/*<ProfileCard name="Indip Niroula" rating={5.0} title="Tenor Vocalist" years="15"*/}
+            {/*             keywords={["Vocalist", "Tenor", "Pianist", "Trinity Music", "GOAT"]}*/}
+            {/*             src={require("../../assets/img/273509.jpg")}*/}
+            {/*             description="I am a Tenor singer and pianist with a passion for teaching.*/}
+            {/*      I have been teaching music for 15 years. I have experience teaching students taking grades 1*/}
+            {/*      through... "*/}
+            {/*/>*/}
+            <div style={{ textAlign: (this.state.usersLoading ? 'center' : 'left') }}>
+              {this.getUsers()}
+            </div>
           </div>
         </section>
         {this.state.showPopup ? <Popup formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}

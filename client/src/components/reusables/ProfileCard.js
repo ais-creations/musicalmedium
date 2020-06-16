@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import axios from 'axios';
+import {default as NumberFormat} from 'react-number-format'
 
 class ProfileCard extends Component {
   constructor(props) {
@@ -15,7 +15,11 @@ class ProfileCard extends Component {
                  data-src="https://c.urbanpro.com/assets/new-ui/green_loader-d6768be07187d99b6cc4ed43481666aa.gif"
                  alt="" className="provider-img lazyImage not-loaded-spinner"/>
           </a>
-          <span className="sponsFeaturedTag">{this.props.rating}</span>
+          <span className="sponsFeaturedTag">
+            {(this.props.rating < 3) ?
+              null :
+              <NumberFormat value={this.props.rating} displayType={"text"} decimalScale={1} fixedDecimalScale={true}/>}
+          </span>
         </div>
         <div className="provider-list-details pos-rel ">
           <div className="details-row">
@@ -42,7 +46,7 @@ class ProfileCard extends Component {
           </div>
           <div className="provider-right-block textAlignRit">
             <div className="appendMsgCall">
-              <button className="btn btn-info" data-for="message">
+              <button className="btn btn-info" onClick={this.props.buttonClick}>
                 Contact
               </button>
             </div>
