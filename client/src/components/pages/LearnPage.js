@@ -58,7 +58,7 @@ class LearnPage extends Component {
     this.setState({
       postsLoading: true
     })
-    axios.get('/learnPosts/').then(res => this.setState({
+    axios.get('learnPosts/').then(res => this.setState({
       postsLoading: false,
       learnPosts: res.data
     }));
@@ -74,7 +74,7 @@ class LearnPage extends Component {
     this.setState({
       usersLoading: true
     })
-    axios.get('/users/').then(res => this.setState({
+    axios.get('users/').then(res => this.setState({
       usersLoading: false,
       users: res.data
     }));
