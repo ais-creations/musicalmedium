@@ -30,21 +30,48 @@ class LandingPage extends Component {
             <div className="block-heading">
               <h2 className="text-info">Take your music to the next grade</h2>
               <p>
-                Search for mentors in a field of your choice or take on students
-                yourself on our easy to use platform.
+                Search for mentors in a field of your choice and elevate your
+                skills to a new level.
               </p>
             </div>
             <div className="row align-items-center">
               <div className="col-md-6">
                 <img
                   className="img-thumbnail"
-                  src={require("../../assets/img/jon-tyson-9b6yj0m2WVA-unsplash.jpg")}
+                  src={require("../../assets/img/man-playing-guitar-with-girl-3450887.jpg")}
                 />
               </div>
               <div className="col-md-6">
-                <h3>Home to musicians of all backgrounds and disciplines</h3>
+                <h3>Find a mentor now!</h3>
                 <div className="getting-started-info">
-                  <p>Engage with a diverse community of musicians today! </p>
+                  <p>
+                    We guarantee you will find the perfect teacher to suit your
+                    needs
+                  </p>
+                </div>
+                <button
+                  className="btn btn-outline-primary btn-lg"
+                  type="button"
+                >
+                  Search Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="clean-block clean-info dark">
+          <div className="container">
+            <div className="block-heading">
+              <h2 className="text-info">
+                Home to musicians of all backgrounds and disciplines
+              </h2>
+              <p>Engage with a diverse community of musicians today! </p>
+            </div>
+            <div className="row align-items-center">
+              <div className="col-md-6">
+                <h3> Start a conversation with every kind of musician</h3>
+                <div className="getting-started-info">
+                  <p />
                 </div>
                 <button
                   className="btn btn-outline-primary btn-lg"
@@ -52,6 +79,12 @@ class LandingPage extends Component {
                 >
                   Join Now
                 </button>
+              </div>
+              <div className="col-md-6">
+                <img
+                  className="img-thumbnail"
+                  src={require("../../assets/img/jon-tyson-9b6yj0m2WVA-unsplash.jpg")}
+                />
               </div>
             </div>
           </div>
