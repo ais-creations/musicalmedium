@@ -45,7 +45,7 @@ class TeachPage extends Component {
       )
     }
     let i = 0;
-    console.log(JSON.stringify(this.state.posts))
+    console.log(this.state.posts);
     return (
       <div>
         {Object.entries(this.state.posts).map(([key, post]) => {

@@ -89,7 +89,7 @@ class LearnPage extends Component {
       )
     }
     let i = 0;
-    console.log(JSON.stringify(this.state.learnPosts))
+    console.log(this.state.learnPosts);
     return (
       <div>
         {Object.entries(this.state.learnPosts).map(([key, post]) => {
