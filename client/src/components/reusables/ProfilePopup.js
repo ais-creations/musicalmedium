@@ -35,17 +35,13 @@ class ProfilePopup extends React.Component {
     }
 
     const userData = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2,
       jobTitle: this.state.jobTitle,
       description: this.state.description,
       yearsOfExperience: this.state.yearsOfExperience,
       educationLevel: this.state.educationLevel,
       rating: this.state.rating,
       imgSrc: this.state.imgSrc,
-      keywords: []
+      keywords: [this.state.keyword1, this.state.keyword2, this.state.keyword3]
     };
 
     // let learnPosts = localStorage.getItem('learnPosts').concat(learnPost);
