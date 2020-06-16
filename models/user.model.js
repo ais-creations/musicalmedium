@@ -4,11 +4,6 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    // firstname: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
     name: {
         type: String,
         required: true,
@@ -43,7 +38,15 @@ const UserSchema = new Schema({
     rating: {
         type: Number,
         required: true,
-    }
+    },
+    imgSrc: {
+        type: String,
+        required: true,
+    },
+    keywords: {
+        type: Array,
+        required: true
+    },
 },  {
     timestamps: true,
 });

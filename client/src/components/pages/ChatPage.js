@@ -7,9 +7,17 @@ class ChatPage extends Component {
     this.toggle = this.toggle.bind(this);
     this.send = this.send.bind(this);
     this.state = {
-      profileView: false,
-      message: ""
+      profileView: true,
+      message: "",
+      profilesLoading: true,
+      messagesLoading: true,
+      profiles: {},
+      messages: {}
     }
+  }
+
+  componentDidMount() {
+
   }
 
   onChange = e => {
@@ -18,6 +26,8 @@ class ChatPage extends Component {
 
   toggle() {
     if (this.state.profileView) {
+      // Open chat
+
       this.setState({
         profileView: false
       })

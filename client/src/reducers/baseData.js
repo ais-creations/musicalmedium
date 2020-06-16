@@ -3,6 +3,8 @@ const baseData = {
   userID: 0,
   firstname: "",
   name: "",
+  bio: "",
+  jobTitle: "",
   profile: {}
 }
 

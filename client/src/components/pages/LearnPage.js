@@ -16,8 +16,8 @@ class LearnPage extends Component {
     this.reloadUserData = this.reloadUserData.bind(this);
 
     this.state = {
-      learnPosts: {},
-      users: {},
+      learnPosts: [],
+      users: [],
       postsLoading: true,
       usersLoading: true,
       showPopup: false,
@@ -85,7 +85,7 @@ class LearnPage extends Component {
   getPosts() {
     if (this.state.postsLoading) {
       return (
-        <Spinner size="sm" color="primary"/>
+        <Spinner style={{ marginTop: '10px' }} size="sm" color="primary"/>
       )
     }
     let i = 0;
@@ -95,14 +95,14 @@ class LearnPage extends Component {
         {Object.entries(this.state.learnPosts).map(([key, post]) => {
           if (post.userID === this.state.userID) {
             i++;
+            const keywords = post.keywords;
             return (
               <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                             maxBudget={post.maxBudget}
                             timeFrame="hour"
-                            keywords={post.keywords}
+                            keywords={keywords.filter(v => v !== "")}
                             description={post.description}/>
             )
-            // /*.filter(v => v !== "")*/
           }
           return null;
         })}
@@ -114,7 +114,7 @@ class LearnPage extends Component {
   getUsers() {
     if (this.state.usersLoading) {
       return (
-        <Spinner style={{ marginBottom: '50%' }} size="sm" color="primary"/>
+        <Spinner style={{ marginTop: '10px', marginBottom: '50%' }} size="sm" color="primary"/>
       )
     }
     let i = 0;
@@ -122,15 +122,13 @@ class LearnPage extends Component {
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
-          // && user.name.toLowerCase().includes(this.state.searchQuery)
-          if (user.id !== this.state.userID) {
+          if (user.id !== this.state.userID && user.name.toLowerCase().includes(this.state.searchQuery)) {
             i++;
             return (
-              <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
+              <ProfileCard name={user.name} rating={user.rating} title={user.jobTitle} years={user.yearsOfExperience}
                            keywords={["Guitarist", "Classical", "Professional"]}
-                           src={require("../../assets/img/189315459.jpg")}
-                           description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
-                  for 4 years. I have been teaching students remotely for the past 3 months. I am..."
+                           src={user.imgSrc}
+                           description={user.bio}
                            buttonClick={this.contact.bind(this)}
               />
             )

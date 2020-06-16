@@ -3,15 +3,32 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
 import baseData from "../../reducers/baseData";
+import Popup from "../reusables/Popup";
+import ProfilePopup from "../reusables/ProfilePopup";
 
 class ProfilePage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.togglePopup = this.togglePopup.bind(this);
+    this.formSubmit = this.formSubmit.bind(this);
+
     this.state = {
       user: {},
-      name: ""
+      name: "",
+      showPopup: false
     }
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
+
+  formSubmit() {
+    this.render();
   }
 
   onLogoutClick = e => {
@@ -30,8 +47,9 @@ class ProfilePage extends Component {
     return (
       <main className="page">
         <section className="clean-block about-us">
-          <div className="container">
-            <div className="text-center profile-card" style={{ margin: '15px', backgroundColor: '#ffffff' }}>
+          <div className="container" style={{ textAlign: 'center' }}>
+            <div className="text-center box-shadow rounded-lg"
+                 style={{ margin: '15px', backgroundColor: '#ffffff' }}>
               <div className="profile-card-img" style={{
                 backgroundImage: 'url(' + require("../../assets/img/close-up-photo-of-person-playing-piano-1246437.jpg") + ')',
                 backgroundSize: 'cover'
@@ -53,24 +71,14 @@ class ProfilePage extends Component {
                   <i className="icon-social-twitter" style={{ paddingRight: '5px', paddingLeft: '5px' }}/>
                 </a>
               </div>
-            </div>
-            <div style={{ height: "75vh" }} className="container valign-wrapper">
-              <div className="row">
-                <div className="col s12 center-align">
-                  <h4>
-                  </h4>
-                  {/*<button*/}
-                  {/*    style={{position: 'absolute', right: '10px'}}*/}
-                  {/*    onClick={this.onLogoutClick}*/}
-                  {/*    className="btn btn-primary waves-effect waves-light hoverable blue accent-3"*/}
-                  {/*>*/}
-                  {/*  Logout*/}
-                  {/*</button>*/}
-                </div>
-              </div>
+              <button className="btn btn-info" onClick={this.togglePopup} type="button"
+                      style={{ marginTop: '10px', marginBottom: '20px' }}>
+                Edit Profile
+              </button>
             </div>
           </div>
         </section>
+        {this.state.showPopup ? <ProfilePopup formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
       </main>
     )
   }

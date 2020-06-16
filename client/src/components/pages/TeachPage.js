@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Spinner} from "reactstrap";
-import UserPostCard from "../reusables/UserPostCard";
 import PostCard from "../reusables/PostCard";
 import axios from "axios";
 import baseData from "../../reducers/baseData";
@@ -12,7 +11,7 @@ class TeachPage extends Component {
     this.reloadPostData = this.reloadPostData.bind(this);
 
     this.state = {
-      posts: {},
+      posts: [],
       postsLoading: true,
       userID: ""
     };
@@ -41,7 +40,7 @@ class TeachPage extends Component {
   getPosts() {
     if (this.state.postsLoading) {
       return (
-        <Spinner style={{marginBottom: '100%'}} size="sm" color="primary"/>
+        <Spinner style={{ marginBottom: '100%' }} size="sm" color="primary"/>
       )
     }
     let i = 0;
@@ -49,18 +48,18 @@ class TeachPage extends Component {
     return (
       <div>
         {Object.entries(this.state.posts).map(([key, post]) => {
+          const keywords = post.keywords;
           if (post.userID !== this.state.userID) {
             i++;
             return (
               <PostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
                         maxBudget={post.maxBudget}
                         timeFrame="hour"
-                        keywords={post.keywords}
+                        keywords={keywords.filter(v => v !== "")}
                         description={post.description}
                         buttonClick={this.contact.bind(this)} buttonText="Contact"/>
             )
           }
-          ///*.filter(v => v !== "")*/
           return null;
         })}
         {i === 0 ? (<center style={{ paddingTop: "10px" }}>No currently active posts</center>) : null}
