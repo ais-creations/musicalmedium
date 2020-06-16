@@ -21,7 +21,9 @@ class LearnPage extends Component {
       usersLoading: true,
       showPopup: false,
       changed: false,
-      userID: ""
+      userID: "",
+      searchBox: "",
+      searchQuery: ""
     };
   }
 
@@ -33,6 +35,11 @@ class LearnPage extends Component {
       this.reloadUserData();
     }
   }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
 
   formSubmit() {
     // this.reloadUserData();
@@ -59,6 +66,11 @@ class LearnPage extends Component {
   }
 
   reloadUserData() {
+    if (this.state.searchBox != null) {
+      this.setState({
+        searchQuery: this.state.searchBox
+      })
+    }
     this.setState({
       usersLoading: true
     })
@@ -99,24 +111,29 @@ class LearnPage extends Component {
   getUsers() {
     if (this.state.usersLoading) {
       return (
-        <Spinner size="sm" color="primary"/>
+        <Spinner style={{ marginBottom: '100%' }} size="sm" color="primary"/>
       )
     }
+    let i = 0;
     return (
-      Object.entries(this.state.users).map(([key, user]) => {
-        if (user.id !== this.state.userID) {
-          return (
-            <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
-                         keywords={["Guitarist", "Classical", "Professional"]}
-                         src={require("../../assets/img/189315459.jpg")}
-                         description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
+      <div>
+        {Object.entries(this.state.users).map(([key, user]) => {
+          if (user.id !== this.state.userID && user.name.toLowerCase().includes(this.state.searchQuery)) {
+            i++;
+            return (
+              <ProfileCard name={user.name} rating={4.7} title="Classical Guitarist" years="5"
+                           keywords={["Guitarist", "Classical", "Professional"]}
+                           src={require("../../assets/img/189315459.jpg")}
+                           description="I am a Certified Classical Guitarist, having taught at the Royal College of Music
                   for 4 years. I have been teaching students remotely for the past 3 months. I am..."
-                         buttonClick={this.contact.bind(this)}
-            />
-          )
-        }
-        return null;
-      })
+                           buttonClick={this.contact.bind(this)}
+              />
+            )
+          }
+          return null;
+        })}
+        {i === 0 ? (<center style={{ paddingTop: "10px", marginBottom: "80%" }}>Couldn't find any users with query "{this.state.searchQuery}"</center>) : null}
+      </div>
     )
   }
 
@@ -171,10 +188,14 @@ class LearnPage extends Component {
             {/*Search Bar*/}
             <div className="search-container" style={{ display: 'flex', marginBottom: '10px' }}><i
               className="fa fa-search"
-              style={{ color: 'rgb(0,0,0)', marginTop: '10px', marginRight: '10px', marginLeft: '-10px' }}/><input
-              type="text" className="form-control" name="search-bar" placeholder="Search..."
-              style={{ marginTop: 0, marginRight: '0px' }}/>
-              <button className="btn btn-primary btn-light" type="button" style={{ marginLeft: '3px' }}>Search</button>
+              style={{ color: 'rgb(0,0,0)', marginTop: '10px', marginRight: '10px', marginLeft: '-10px' }}/>
+              <input type="input" className="form-control" name="search-bar" placeholder="Search..."
+                     style={{ marginTop: 0, marginRight: '0px' }} onChange={this.onChange} id="searchBox"
+                     value={this.state.searchBox}/>
+              <button className="btn btn-primary btn-light"
+                      onClick={this.reloadUserData.bind(this)}
+                      type="submit" style={{ marginLeft: '3px' }}>Search
+              </button>
             </div>
 
             {/*<ProfileCard name="Radostin Petrov" rating="4.7" title="Classical Guitarist" years="5"*/}
