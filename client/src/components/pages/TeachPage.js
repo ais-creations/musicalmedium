@@ -11,7 +11,7 @@ class TeachPage extends Component {
     this.reloadPostData = this.reloadPostData.bind(this);
 
     this.state = {
-      posts: [],
+      posts: {},
       postsLoading: true,
       userID: ""
     };

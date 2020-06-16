@@ -16,8 +16,8 @@ class LearnPage extends Component {
     this.reloadUserData = this.reloadUserData.bind(this);
 
     this.state = {
-      learnPosts: [],
-      users: [],
+      learnPosts: {},
+      users: {},
       postsLoading: true,
       usersLoading: true,
       showPopup: false,
@@ -56,9 +56,10 @@ class LearnPage extends Component {
   }
 
   reloadPostData() {
-    this.setState({
-      postsLoading: true
-    })
+    // this.setState({
+    //   postsLoading: true
+    // })
+
     axios.get('learnPosts/').then(res => this.setState({
       postsLoading: false,
       learnPosts: res.data
@@ -72,9 +73,9 @@ class LearnPage extends Component {
         searchQuery: this.state.searchBox
       })
     }
-    this.setState({
-      usersLoading: true
-    })
+    // this.setState({
+    //   usersLoading: true
+    // })
     axios.get('users/').then(res => this.setState({
       usersLoading: false,
       users: res.data
@@ -118,7 +119,7 @@ class LearnPage extends Component {
       )
     }
     let i = 0;
-    console.log(JSON.stringify(this.state.users))
+    console.log(this.state.users);
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
