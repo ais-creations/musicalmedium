@@ -23,6 +23,26 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    jobTitle: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    yearsOfExperience: {
+        type: Number,
+        required: true,
+    },
+    educationLevel: {
+        type: String,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
     }
 },  {
     timestamps: true,

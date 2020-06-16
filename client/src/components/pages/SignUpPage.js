@@ -15,7 +15,10 @@ class SignUpPage extends Component {
       email: "",
       password: "",
       password2: "",
+      jobTitle: "Musician",
       description: "",
+      yearsOfExperience: 0,
+      educationLevel: "No Qualifications",
       errors: {}
     };
   }
@@ -27,18 +30,39 @@ class SignUpPage extends Component {
     }
   }
 
+  onSelect = e => {
+    this.setState({ [e.target.id]: e.options[e.selectedIndex].value });
+  }
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  getRating(qualificationLevel) {
+    switch (qualificationLevel) {
+      case "No Qualifications":
+        return 1;
+      case "School Level Diploma":
+        return 2;
+      case "Bachelor":
+        return 3;
+      case "Masters":
+        return 4;
+    }
+  }
   onSubmit = e => {
     e.preventDefault();
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      jobTitle: this.state.jobTitle,
+      description: this.state.description,
+      yearsOfExperience: this.state.yearsOfExperience,
+      educationLevel: this.state.educationLevel,
+      rating: this.getRating(this.state.educationLevel)
     };
+    console.log(newUser);
     this.props.registerUser(newUser, this.props.history);
   };
 
@@ -93,11 +117,31 @@ class SignUpPage extends Component {
                   })} type="password" id="password2" style={{lineHeight: '14px'}} />
                   <span className="error-text">{errors.password2}</span>
                 </div>
+                <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Job Title</label>
+                  <input onChange={this.onChange}
+                         value={this.state.jobTitle}
+                         className="form-control item"
+                         type="text" id="jobTitle" style={{fontSize: '14px'}} />
+                </div>
                 <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Profile Description</label>
                   <textarea onChange={this.onChange}
                          value={this.state.description}
                           className={"form-control"} id="description" style={{lineHeight: '14px'}} />
-                  {/*<span className="error-text">{errors.password2}</span>*/}
+                </div>
+                <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Years of Experience</label>
+                  <input onChange={this.onChange}
+                         value={this.state.yearsOfExperience}
+                         className="form-control item"
+                    type="number" id="yearsOfExperience" style={{fontSize: '14px'}} />
+                </div>
+                <div className="form-group"><label htmlFor="email" style={{fontSize: '14px'}}>Education Level in Music</label>
+                  <select onChange={this.onChange} value={this.state.educationLevel} className={"form-control item"}
+                          id="educationLevel" style={{ fontSize: '12px', marginRight: '10px', width: '200px', padding: '0px' }}>
+                    <option value="No Qualifications" selected>No Qualifications</option>
+                    <option value="Masters">Master</option>
+                    <option value="Bachelor">Bachelor</option>
+                    <option value="School Level Diploma">School Level Diploma</option>
+                  </select>
                 </div>
                 <div className="form-group">
                   <div className="d-flex justify-content-between">
