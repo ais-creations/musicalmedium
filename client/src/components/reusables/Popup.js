@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import classnames from "classnames";
 import baseData from "../../reducers/baseData";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";

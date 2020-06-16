@@ -31,7 +31,7 @@ class TeachPage extends Component {
     this.setState({
       postsLoading: true
     })
-    axios.get('http://localhost:4000/learnPosts/').then(res => this.setState({
+    axios.get('learnPosts/').then(res => this.setState({
       postsLoading: false,
       posts: res.data
     }));
