@@ -34,8 +34,10 @@ require("./config/passport")(passport);
 
 const usersRouter = require('./routes/users');
 const learnPostsRouter = require('./routes/learnPost');
+const chatMessageRouter = require('./routes/chatMessage');
 app.use('/users', usersRouter);
 app.use('/learnPosts', learnPostsRouter);
+app.use('/chat', chatMessageRouter);
 
 
 app.listen(port, () => {
