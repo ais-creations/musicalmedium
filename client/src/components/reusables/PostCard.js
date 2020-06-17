@@ -30,7 +30,7 @@ class PostCard extends Component {
           </div>
           <div className="provider-right-block textAlignRit">
             <div className="appendMsgCall">
-              <button className="btn btn-info" onClick={this.props.buttonClick}>
+              <button className="btn btn-info" onClick={this.props.toggle}>
                 {this.props.buttonText}
               </button>
             </div>

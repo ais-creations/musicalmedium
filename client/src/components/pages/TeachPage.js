@@ -3,19 +3,23 @@ import {Spinner} from "reactstrap";
 import PostCard from "../reusables/PostCard";
 import axios from "axios";
 import baseData from "../../reducers/baseData";
+import ContactPopup from "../reusables/ContactPopup";
 
 class TeachPage extends Component {
   constructor(props) {
     super(props);
 
     this.reloadPostData = this.reloadPostData.bind(this);
+    this.toggle = this.toggle.bind(this);
 
     this.state = {
       posts: {},
       postsLoading: true,
       userID: "",
       searchBox: "",
-      searchQuery: ""
+      searchQuery: "",
+      showPopup: false,
+      contact: ["Mobile: +447956384221", "Email: vladovidin@gmail.com", ""]
     };
   }
 
@@ -27,6 +31,12 @@ class TeachPage extends Component {
     if (this.state.postsLoading) {
       this.reloadPostData();
     }
+  }
+
+  toggle() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
   }
 
   contact(userID) {
@@ -72,7 +82,7 @@ class TeachPage extends Component {
                         timeFrame="hour"
                         keywords={keywords.filter(v => v !== "")}
                         description={post.description}
-                        buttonClick={this.contact.bind(this)} buttonText="Contact"/>
+                        toggle={this.toggle} buttonText="Contact"/>
             )
           }
           return null;
@@ -116,6 +126,7 @@ class TeachPage extends Component {
             </div>
           </div>
         </section>
+        {this.state.showPopup ? <ContactPopup contact={this.state.contact} closePopup={this.toggle}/> : null}
       </main>
     );
   }
