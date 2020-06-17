@@ -150,7 +150,7 @@ router.post('/update/:id', (req, res) => {
   "rating": req.body.rating,
   "imgSrc": req.body.imgSrc,
   "keywords": [req.body.keywords[0], req.body.keywords[1],req.body.keywords[2]]}
-    ).then(res => console.log(res.data))
+    ).then(user => res.json(user))
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
