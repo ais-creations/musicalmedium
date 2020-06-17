@@ -78,7 +78,7 @@ class ProfilePage extends Component {
             </div>
           </div>
         </section>
-        {this.state.showPopup ? <ProfilePopup formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
+        {this.state.showPopup ? <ProfilePopup userID={userData.userID} formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
       </main>
     )
   }

@@ -142,4 +142,17 @@ router.put("/", (req, res) => {
 })
 
 
+router.post('/update/:id', (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {"jobTitle": req.body.jobTitle,
+  "description": req.body.description,
+  "yearsOfExperience": req.body.yearsOfExperience,
+  "educationLevel": req.body.educationLevel,
+  "rating": req.body.rating,
+  "imgSrc": req.body.imgSrc,
+  "keywords": [req.body.keywords[0], req.body.keywords[1],req.body.keywords[2]]}
+    ).then(res => console.log(res.data))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
 module.exports = router;

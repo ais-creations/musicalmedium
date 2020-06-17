@@ -30,6 +30,7 @@ class ProfilePopup extends React.Component {
   onSubmit = e => {
     e.preventDefault();
 
+
     if (this.state.imgSrc === "") {
       this.setState({ imgSrc: "https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" })
     }
@@ -44,11 +45,15 @@ class ProfilePopup extends React.Component {
       keywords: [this.state.keyword1, this.state.keyword2, this.state.keyword3]
     };
 
+
+    axios.post('users/update/' + this.props.userID, userData).then(res => console.log(res.data)).catch(err => console.log(err));
+
     // let learnPosts = localStorage.getItem('learnPosts').concat(learnPost);
     // localStorage.setItem('learnPosts', learnPosts);
     //
     // axios.post('/learnPosts/add', learnPost)
     //   .then(res => console.log(res.data))
+
 
     this.props.formSubmit();
     this.props.closePopup();

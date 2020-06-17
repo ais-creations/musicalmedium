@@ -93,7 +93,9 @@ class LearnPage extends Component {
     console.log(this.state.learnPosts);
     return (
       <div>
-        {Object.entries(this.state.learnPosts).map(([key, post]) => {
+        {
+          Object.entries(this.state.learnPosts).map(([key, post]) => {
+            console.log(key, post);
           if (post.userID === this.state.userID) {
             i++;
             const keywords = post.keywords;
