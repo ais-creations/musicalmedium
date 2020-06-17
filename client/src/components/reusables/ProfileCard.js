@@ -6,6 +6,10 @@ class ProfileCard extends Component {
     super(props);
   }
 
+  click() {
+    this.props.toggle(this.props.contact)
+  }
+
   render() {
     return (
       <div className="provider-list-card needAjaxFormContainer shadowDiv">
@@ -46,7 +50,7 @@ class ProfileCard extends Component {
           </div>
           <div className="provider-right-block textAlignRit">
             <div className="appendMsgCall">
-              <button className="btn btn-info" onClick={this.props.buttonClick}>
+              <button className="btn btn-info" onClick={this.click.bind(this)}>
                 Contact
               </button>
             </div>

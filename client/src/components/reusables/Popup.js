@@ -69,13 +69,14 @@ class Popup extends React.Component {
             <div className="form-group">
               <label htmlFor="email" style={{ fontSize: '14px' }}>Title</label>
               <input onChange={this.onChange} value={this.state.title}
-                     className={"form-control item"}
+                     className={"form-control item"} placeholder="What do you want help with..."
                      id="title" style={{ fontSize: '14px' }}/>
             </div>
             <div className="form-group">
               <label htmlFor="email" style={{ fontSize: '14px' }}>Description</label>
               <textarea onChange={this.onChange} value={this.state.description}
                         className={"form-control item"}
+                        placeholder="Brief description - what needs to be done, how much time will someone have to spend on it, what expertise do you want i.e. I want to learn Trombone over the course of the next 4 weeks, would ideally want 3 one hour lessons a week with an experienced teacher"
                         id="description" style={{ fontSize: '14px', height: '100px' }}/>
             </div>
             <div className="form-group">
@@ -98,16 +99,16 @@ class Popup extends React.Component {
                        type="number" id="maxBudget" style={{ fontSize: '12px' }}/>
               </div>
               <div className="form-group">
-                <label htmlFor="email" style={{ fontSize: '14px' }}>Tags</label>
+                <label htmlFor="email" style={{ fontSize: '14px' }}>Tags (Optional)</label>
                 <div style={{ display: 'flex' }}>
                   <input onChange={this.onChange} value={this.state.keyword1}
-                         className={"form-control item"}
+                         className={"form-control item"} placeholder=""
                          id="keyword1" style={{ fontSize: '12px', marginRight: '10px' }}/>
                   <input onChange={this.onChange} value={this.state.keyword2}
-                         className={"form-control item"}
+                         className={"form-control item"} placeholder=""
                          id="keyword2" style={{ fontSize: '12px', marginRight: '10px' }}/>
                   <input onChange={this.onChange} value={this.state.keyword3}
-                         className={"form-control item"}
+                         className={"form-control item"} placeholder=""
                          id="keyword3" style={{ fontSize: '12px' }}/>
                 </div>
               </div>

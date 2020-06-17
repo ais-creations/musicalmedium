@@ -47,6 +47,10 @@ const UserSchema = new Schema({
         type: Array,
         required: true
     },
+    contact: {
+        type: Array,
+        required: true
+    }
 },  {
     timestamps: true,
 });

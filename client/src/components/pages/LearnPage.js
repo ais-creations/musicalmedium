@@ -5,12 +5,14 @@ import Popup from "../reusables/Popup";
 import axios from 'axios';
 import {Spinner} from "reactstrap";
 import baseData from "../../reducers/baseData";
+import ContactPopup from "../reusables/ContactPopup";
 
 class LearnPage extends Component {
   constructor(props) {
     super(props);
 
     this.togglePopup = this.togglePopup.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
     this.reloadPostData = this.reloadPostData.bind(this);
     this.reloadUserData = this.reloadUserData.bind(this);
@@ -21,14 +23,24 @@ class LearnPage extends Component {
       postsLoading: true,
       usersLoading: true,
       showPopup: false,
+      showPopup2: false,
       changed: false,
       userID: "",
       searchBox: "",
-      searchQuery: ""
+      searchQuery: "",
+      contact: []
     };
   }
 
   componentDidMount() {
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+      userData = JSON.parse(localStorage.getItem('userData'));
+    }
+    this.setState({
+      userID: userData.userID
+    })
     if (this.state.postsLoading) {
       this.reloadPostData();
     }
@@ -46,12 +58,16 @@ class LearnPage extends Component {
     // this.reloadUserData();
   }
 
-  contact(userID) {
-  }
-
   togglePopup() {
     this.setState({
       showPopup: !this.state.showPopup
+    });
+  }
+
+  toggle(contact) {
+    this.setState({
+      contact: contact,
+      showPopup2: !this.state.showPopup2
     });
   }
 
@@ -96,19 +112,19 @@ class LearnPage extends Component {
         {
           Object.entries(this.state.learnPosts).map(([key, post]) => {
             console.log(key, post);
-          if (post.userID === this.state.userID) {
-            i++;
-            const keywords = post.keywords;
-            return (
-              <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
-                            maxBudget={post.maxBudget}
-                            timeFrame="hour"
-                            keywords={keywords.filter(v => v !== "")}
-                            description={post.description}/>
-            )
-          }
-          return null;
-        })}
+            if (post.userID === this.state.userID) {
+              i++;
+              const keywords = post.keywords;
+              return (
+                <UserPostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
+                              maxBudget={post.maxBudget}
+                              timeFrame="hour"
+                              keywords={keywords.filter(v => v !== "")}
+                              description={post.description}/>
+              )
+            }
+            return null;
+          })}
         {i === 0 ? (<center style={{ paddingTop: "10px" }}>No currently active posts</center>) : null}
       </div>
     )
@@ -125,14 +141,20 @@ class LearnPage extends Component {
     return (
       <div>
         {Object.entries(this.state.users).map(([key, user]) => {
-          if (user.id !== this.state.userID && user.name.toLowerCase().includes(this.state.searchQuery)) {
+          if (user._id !== this.state.userID
+            && (user.name.toLowerCase().includes(this.state.searchQuery)
+              || user.keywords[0].toLowerCase().includes(this.state.searchQuery)
+              || user.keywords[1].toLowerCase().includes(this.state.searchQuery)
+              || user.keywords[2].toLowerCase().includes(this.state.searchQuery)
+            )) {
             i++;
             return (
               <ProfileCard name={user.name} rating={user.rating} title={user.jobTitle} years={user.yearsOfExperience}
                            keywords={user.keywords.filter(v => v !== "")}
+                           contact={(user.contact === null ? [] : user.contact.filter(v => v !== ""))}
+                           toggle={this.toggle}
                            src={user.imgSrc}
                            description={user.description}
-                           buttonClick={this.contact.bind(this)}
               />
             )
           }
@@ -150,7 +172,6 @@ class LearnPage extends Component {
       localStorage.setItem('userData', JSON.stringify(baseData));
       userData = JSON.parse(localStorage.getItem('userData'));
     }
-    this.state.userID = userData.userID;
     const isAuthenticated = userData.authenticated
 
     return (
@@ -224,6 +245,7 @@ class LearnPage extends Component {
           </div>
         </section>
         {this.state.showPopup ? <Popup formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
+        {this.state.showPopup2 ? <ContactPopup contact={this.state.contact} closePopup={this.toggle}/> : null}
       </main>
     )
   }

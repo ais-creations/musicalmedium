@@ -5,6 +5,7 @@ import {logoutUser} from "../../actions/authActions";
 import ProfilePopup from "../reusables/ProfilePopup";
 import axios from "axios";
 import {Spinner} from "reactstrap";
+import baseData from "../../reducers/baseData";
 
 class ProfilePage extends Component {
 
@@ -16,6 +17,7 @@ class ProfilePage extends Component {
 
     this.state = {
       loading: true,
+      userID: "",
       user: {},
       showPopup: false,
     }
@@ -37,8 +39,10 @@ class ProfilePage extends Component {
     });
   }
 
-  formSubmit() {
-    this.render();
+  formSubmit(data) {
+    this.setState({
+      user: data
+    })
   }
 
   onLogoutClick = e => {
@@ -47,6 +51,12 @@ class ProfilePage extends Component {
   };
 
   render() {
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData === null || !userData.authenticated) {
+      localStorage.setItem('userData', JSON.stringify(baseData));
+      userData = JSON.parse(localStorage.getItem('userData'));
+    }
+    this.state.userID = userData.userID;
     if (this.state.loading) {
       return (
         <main className="page">
@@ -100,7 +110,7 @@ class ProfilePage extends Component {
           </div>
         </section>
         {this.state.showPopup ?
-          <ProfilePopup user={this.state.user} formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
+          <ProfilePopup style={{marginTop:'-10%'}} userID={this.state.userID} user={this.state.user} formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
       </main>
     )
   }

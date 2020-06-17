@@ -13,9 +13,15 @@ class TeachPage extends Component {
     this.state = {
       posts: {},
       postsLoading: true,
-      userID: ""
+      userID: "",
+      searchBox: "",
+      searchQuery: ""
     };
   }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
 
   componentDidMount() {
     if (this.state.postsLoading) {
@@ -27,6 +33,11 @@ class TeachPage extends Component {
   }
 
   reloadPostData() {
+    if (this.state.searchBox != null) {
+      this.setState({
+        searchQuery: this.state.searchBox
+      })
+    }
     this.setState({
       postsLoading: true
     })
@@ -49,7 +60,11 @@ class TeachPage extends Component {
       <div>
         {Object.entries(this.state.posts).map(([key, post]) => {
           const keywords = post.keywords;
-          if (post.userID !== this.state.userID) {
+          if (post.userID !== this.state.userID && (post.title.toLowerCase().includes(this.state.searchQuery)
+            || post.keywords[0].toLowerCase().includes(this.state.searchQuery)
+            || post.keywords[1].toLowerCase().includes(this.state.searchQuery)
+            || post.keywords[2].toLowerCase().includes(this.state.searchQuery)
+          )) {
             i++;
             return (
               <PostCard postKey={post._id} title={post.title} currency={post.currency} minBudget={post.minBudget}
@@ -62,7 +77,8 @@ class TeachPage extends Component {
           }
           return null;
         })}
-        {i === 0 ? (<center style={{ paddingTop: "10px" }}>No currently active posts</center>) : null}
+        {i === 0 ? (<center style={{ paddingTop: "10px", marginBottom: "50%" }}>Couldn't find
+          any posts</center>) : null}
       </div>
     )
   }
@@ -84,18 +100,15 @@ class TeachPage extends Component {
                 Find Jobs
               </h2>
             </div>
-            <div className="search-container" style={{ display: "flex", marginBottom: "10px" }}>
-              <i className="fa fa-search"
-                 style={{ color: "rgb(0,0,0)", marginTop: "10px", marginRight: "10px", marginLeft: "-10px", }}/>
-              <input
-                type="text"
-                className="form-control"
-                name="search-bar"
-                placeholder="Search..."
-                style={{ marginTop: 0, marginRight: "0px" }}
-              />
-              <button className="btn btn-primary btn-light" type="button" style={{ marginLeft: "3px" }}>
-                Search
+            <div className="search-container" style={{ display: 'flex', marginBottom: '10px' }}><i
+              className="fa fa-search"
+              style={{ color: 'rgb(0,0,0)', marginTop: '10px', marginRight: '10px', marginLeft: '-10px' }}/>
+              <input type="input" className="form-control" name="search-bar" placeholder="Search..."
+                     style={{ marginTop: 0, marginRight: '0px' }} onChange={this.onChange} id="searchBox"
+                     value={this.state.searchBox}/>
+              <button className="btn btn-primary btn-light"
+                      onClick={this.reloadPostData}
+                      type="submit" style={{ marginLeft: '3px' }}>Search
               </button>
             </div>
             <div style={{ textAlign: (this.state.postsLoading ? 'center' : 'left') }}>

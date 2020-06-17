@@ -64,7 +64,8 @@ class SignUpPage extends Component {
       // rating: this.getRating(this.state.educationLevel)
       rating: this.state.rating,
       imgSrc: this.state.imgSrc,
-      keywords: []
+      keywords: ["", "", ""],
+      contact: ["", "", ""]
     };
     console.log(newUser);
     this.props.registerUser(newUser, this.props.history);
@@ -80,27 +81,28 @@ class SignUpPage extends Component {
               <div className="block-heading">
                 <h2 className="text-info" style={{ fontSize: '24px' }}>Sign Up</h2>
               </div>
-              <form onSubmit={this.onSubmit}><a className="btn btn-primary btn-block text-white btn-google btn-user"
-                                                role="button"
-                                                style={{ border: 'none', backgroundColor: 'rgb(220,69,56)' }}><i
-                className="fab fa-google"/>Sign up with Google</a><a
-                className="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"
-                style={{ backgroundColor: 'rgb(59,89,152)', border: 'none' }}><i
-                className="fab fa-facebook-f"/>&nbsp;Sign up with Facebook</a>
-                <div className="d-flex flex-row align-items-center login-box-seperator-container"
-                     style={{ paddingTop: '24px' }}>
-                  <div className="login-box-seperator"/>
-                  <div className="login-box-seperator-text">
-                    <p style={{
-                      marginBottom: '0px',
-                      paddingLeft: '10px',
-                      paddingRight: '10px',
-                      fontWeight: 400,
-                      color: 'rgb(0,0,0)'
-                    }}>or</p>
-                  </div>
-                  <div className="login-box-seperator"/>
-                </div>
+              <form onSubmit={this.onSubmit}>
+                {/*<a className="btn btn-primary btn-block text-white btn-google btn-user"*/}
+                {/*                                role="button"*/}
+                {/*                                style={{ border: 'none', backgroundColor: 'rgb(220,69,56)' }}><i*/}
+                {/*className="fab fa-google"/>Sign up with Google</a><a*/}
+                {/*className="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"*/}
+                {/*style={{ backgroundColor: 'rgb(59,89,152)', border: 'none' }}><i*/}
+                {/*className="fab fa-facebook-f"/>&nbsp;Sign up with Facebook</a>*/}
+                {/*<div className="d-flex flex-row align-items-center login-box-seperator-container"*/}
+                {/*     style={{ paddingTop: '24px' }}>*/}
+                {/*  <div className="login-box-seperator"/>*/}
+                {/*  <div className="login-box-seperator-text">*/}
+                {/*    <p style={{*/}
+                {/*      marginBottom: '0px',*/}
+                {/*      paddingLeft: '10px',*/}
+                {/*      paddingRight: '10px',*/}
+                {/*      fontWeight: 400,*/}
+                {/*      color: 'rgb(0,0,0)'*/}
+                {/*    }}>or</p>*/}
+                {/*  </div>*/}
+                {/*  <div className="login-box-seperator"/>*/}
+                {/*</div>*/}
                 <div className="form-group"><label htmlFor="email" style={{ fontSize: '14px' }}>Full Name</label>
                   <input onChange={this.onChange}
                          value={this.state.name}
