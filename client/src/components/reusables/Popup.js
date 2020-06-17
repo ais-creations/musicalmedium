@@ -62,7 +62,7 @@ class Popup extends React.Component {
       <div className="popup">
         <div className="popup_inner">
           <div className="popup-header">
-            <h2 className="text-info" style={{ fontSize: '20px', marginBottom: '0px' }}>Post</h2>
+            <h2 className="text-info" style={{ fontSize: '20px', marginBottom: '0px' }}>Find help</h2>
             <button className="btn btn-danger btn-popup-close" onClick={this.props.closePopup}>X</button>
           </div>
           <form onSubmit={this.onSubmit}>
@@ -108,7 +108,7 @@ class Popup extends React.Component {
                          id="keyword2" style={{ fontSize: '12px', marginRight: '10px' }}/>
                   <input onChange={this.onChange} value={this.state.keyword3}
                          className={"form-control item"}
-                         id="keyword3" style={{ fontSize: '14px' }}/>
+                         id="keyword3" style={{ fontSize: '12px' }}/>
                 </div>
               </div>
             </div>

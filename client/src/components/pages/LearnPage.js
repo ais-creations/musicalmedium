@@ -129,9 +129,9 @@ class LearnPage extends Component {
             i++;
             return (
               <ProfileCard name={user.name} rating={user.rating} title={user.jobTitle} years={user.yearsOfExperience}
-                           keywords={["Guitarist", "Classical", "Professional"]}
+                           keywords={user.keywords.filter(v => v !== "")}
                            src={user.imgSrc}
-                           description={user.bio}
+                           description={user.description}
                            buttonClick={this.contact.bind(this)}
               />
             )
@@ -163,8 +163,8 @@ class LearnPage extends Component {
             }}>
               <div className="post-holder" style={{ marginRight: 0, marginBottom: '15px' }}>
                 <button className="btn btn-primary" onClick={this.togglePopup}
-                        type="button" style={{ margin: 0, marginBottom: 0 }}>Post
-                  Requirement
+                        type="button" style={{ margin: 0, marginBottom: 0 }}>
+                  Write a Post
                 </button>
                 <button className="btn btn-info" onClick={this.reloadPostData}
                         type="button" style={{ position: 'absolute', right: '10%', width: '40px' }}>

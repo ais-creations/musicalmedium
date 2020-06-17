@@ -43,6 +43,7 @@ class LoginForm extends Component {
         name: user.name,
         bio: user.description,
         title: user.jobTitle,
+        imgSrc: user.imgSrc,
         profile: {}
       }
       localStorage.setItem('userData', JSON.stringify(data));

@@ -166,7 +166,7 @@ class Header extends Component {
               </li>
 
               {this.choiceLoginProfile(userData.authenticated)}
-              {this.choiceChat(userData.authenticated)}
+              {/*{this.choiceChat(userData.authenticated)}*/}
               {/*<li className="nav-item" role="presentation">*/}
               {/*  <Link onClick={this.toggle} to="/login" className="nav-link"><i className="fas fa-sign-in-alt"/>&nbsp;LOG IN</Link>*/}
               {/*</li>*/}

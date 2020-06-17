@@ -123,25 +123,6 @@ router.get('/', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
-router.put("/", (req, res) => {
-  fs.readFile('db.json', 'utf8', function (err, data) {
-    if (err) throw err;
-    let dbData = JSON.parse(data);
-    // Update data here.
-    // You will have to figure out how to do it yourself
-    // After you have update the entry, write the entire array back to the json file.
-    updatedJSONData = JSON.stringify(dbData)
-    fs.writeFile('db.json', json, 'utf8', function (err, data) {
-      if (err) throw err;
-      // Do something here
-      res.status(200).send("Basket was updated");
-
-    });
-
-  });
-})
-
-
 router.post('/update/:id', (req, res) => {
   User.findByIdAndUpdate(req.params.id, {"jobTitle": req.body.jobTitle,
   "description": req.body.description,

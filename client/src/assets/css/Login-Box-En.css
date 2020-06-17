@@ -336,7 +336,25 @@
   text-align: center;
 }
 
+.tags2 {
+  display: inline-flex;
+}
+
+.tag2 {
+  padding: 1px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: solid 1px #6f6f6f;
+  border-radius: 4px;
+  min-width: 60px;
+  text-align: center;
+}
+
 .tag:hover {
+  background-color: #d4d3d3;
+}
+
+.tag2:hover {
   background-color: #d4d3d3;
 }
 

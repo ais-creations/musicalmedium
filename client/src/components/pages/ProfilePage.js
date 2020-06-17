@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
-import baseData from "../../reducers/baseData";
-import Popup from "../reusables/Popup";
 import ProfilePopup from "../reusables/ProfilePopup";
+import axios from "axios";
+import {Spinner} from "reactstrap";
 
 class ProfilePage extends Component {
 
@@ -15,10 +15,20 @@ class ProfilePage extends Component {
     this.formSubmit = this.formSubmit.bind(this);
 
     this.state = {
+      loading: true,
       user: {},
-      name: "",
-      showPopup: false
+      showPopup: false,
     }
+  }
+
+  componentDidMount() {
+    const { user } = this.props.auth;
+    axios.get('users/' + user.id)
+      .then(res => this.setState(() => ({
+        user: res.data,
+        loading: false
+      })))
+      .catch(err => console.log(err));
   }
 
   togglePopup() {
@@ -37,13 +47,17 @@ class ProfilePage extends Component {
   };
 
   render() {
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData === null || !userData.authenticated) {
-      localStorage.setItem('userData', JSON.stringify(baseData));
-      userData = JSON.parse(localStorage.getItem('userData'));
+    if (this.state.loading) {
+      return (
+        <main className="page">
+          <section className="clean-block about-us">
+            <div className="container" style={{ textAlign: 'center' }}>
+              <Spinner style={{ marginTop: '10%', marginBottom: '50%' }} size="sm" color="primary"/>
+            </div>
+          </section>
+        </main>
+      )
     }
-    this.state.name = userData.name;
-
     return (
       <main className="page">
         <section className="clean-block about-us">
@@ -56,20 +70,27 @@ class ProfilePage extends Component {
               }}/>
               <div>
                 <img className="rounded-circle" style={{ marginTop: '-70px', border: '2px solid #cccccc' }}
-                     src={require("../../assets/img/189315459.jpg")} height="150px"/>
-                <h3 style={{ marginTop: '10px' }}>{this.state.name}</h3>
-                <p style={{ padding: '20px', paddingBottom: 0, paddingTop: '5px' }}>I am a Certified&nbsp;Classical
-                  Guitarist, having taught at the Royal College of Music for 4 years. I have been teaching students
-                  remotely for the past 3 months. I am very passionate about music and teaching.</p>
+                     src={this.state.user.imgSrc} height="150px"/>
+                <h3 style={{ marginTop: '10px' }}>{this.state.user.name} || {this.state.user.jobTitle}</h3>
+                <p style={{ padding: '20px', paddingBottom: 0, paddingTop: '5px' }}>{this.state.user.description}</p>
               </div>
-              <div className="icons"><a href="#" style={{ padding: '0px', paddingRight: '5px', paddingLeft: '5px' }}>
-                <i className="icon-social-facebook"/></a>
+              <div className="icons">
+                <a href="#" style={{ padding: '0px', paddingRight: '5px', paddingLeft: '5px' }}>
+                  <i className="icon-social-facebook"/>
+                </a>
                 <a href="#">
                   <i className="icon-social-instagram" style={{ paddingRight: '5px', paddingLeft: '5px' }}/>
                 </a>
                 <a href="#">
                   <i className="icon-social-twitter" style={{ paddingRight: '5px', paddingLeft: '5px' }}/>
                 </a>
+              </div>
+              <div style={{marginTop: '10px'}}>
+                <div className="tags2">
+                  {this.state.user.keywords.filter(v => v !== "").map(keyword => (
+                    <div className="tag2">{keyword}</div>
+                  ))}
+                </div>
               </div>
               <button className="btn btn-info" onClick={this.togglePopup} type="button"
                       style={{ marginTop: '10px', marginBottom: '20px' }}>
@@ -78,7 +99,8 @@ class ProfilePage extends Component {
             </div>
           </div>
         </section>
-        {this.state.showPopup ? <ProfilePopup userID={userData.userID} formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
+        {this.state.showPopup ?
+          <ProfilePopup user={this.state.user} formSubmit={this.formSubmit} closePopup={this.togglePopup}/> : null}
       </main>
     )
   }

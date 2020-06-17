@@ -5,22 +5,44 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../../actions/authActions";
 import Redirect from "react-router-dom/es/Redirect";
+import {Spinner} from "reactstrap";
 
 class ProfilePopup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobTitle: "",
-      description: "",
-      yearsOfExperience: 0,
-      educationLevel: "No Qualifications",
-      rating: 0,
-      imgSrc: "",
-      keyword1: "",
-      keyword2: "",
-      keyword3: "",
+      loading: false,
+      name: this.props.user.name,
+      jobTitle: this.props.user.jobTitle,
+      description: this.props.user.description,
+      yearsOfExperience: this.props.user.yearsOfExperience,
+      educationLevel: this.props.user.educationLevel,
+      rating: this.props.user.rating,
+      imgSrc: this.props.user.imgSrc,
+      keyword1: this.props.user.keywords[0],
+      keyword2: this.props.user.keywords[1],
+      keyword3: this.props.user.keywords[2],
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    // axios.get('users/' + this.props.userID)
+    //   .then(res => this.setState(() => ({
+    //     userID: res.data.id,
+    //     name: res.data.name,
+    //     jobTitle: res.data.jobTitle,
+    //     description: res.data.description,
+    //     yearsOfExperience: res.data.yearsOfExperience,
+    //     educationalLevel: res.data.educationalLevel,
+    //     rating: res.data.rating,
+    //     imgSrc: res.data.imgSrc,
+    //     keyword1: res.data.keywords[0],
+    //     keyword2: res.data.keywords[1],
+    //     keyword3: res.data.keywords[2],
+    //     loading: false
+    //   })))
+    //   .catch(err => console.log(err));
   }
 
   onChange = e => {
@@ -30,10 +52,22 @@ class ProfilePopup extends React.Component {
   onSubmit = e => {
     e.preventDefault();
 
-
     if (this.state.imgSrc === "") {
       this.setState({ imgSrc: "https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" })
     }
+
+    const localData = {
+      authenticated: true,
+      userID: this.state.userID,
+      firstname: this.state.name.split(" ")[0],
+      name: this.state.name,
+      bio: this.state.description,
+      jobTitle: this.state.jobTitle,
+      imgSrc: this.state.imgSrc,
+      profile: {},
+    }
+
+    localStorage.setItem('userData', JSON.stringify(localData));
 
     const userData = {
       jobTitle: this.state.jobTitle,
@@ -45,8 +79,9 @@ class ProfilePopup extends React.Component {
       keywords: [this.state.keyword1, this.state.keyword2, this.state.keyword3]
     };
 
-
-    axios.post('users/update/' + this.props.userID, userData).then(res => console.log(res.data)).catch(err => console.log(err));
+    axios.post('users/update/' + this.props.user.id, userData)
+      .then(res => localStorage.setItem('userData', JSON.stringify(res)))
+      .catch(err => console.log(err));
 
     // let learnPosts = localStorage.getItem('learnPosts').concat(learnPost);
     // localStorage.setItem('learnPosts', learnPosts);
@@ -60,14 +95,22 @@ class ProfilePopup extends React.Component {
   };
 
   render() {
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData === null || !userData.authenticated) {
-      localStorage.setItem('userData', JSON.stringify(baseData));
-      userData = JSON.parse(localStorage.getItem('userData'));
-      return <Redirect to={'login'}/>
-    }
-
     const { errors } = this.state;
+    if (this.state.loading) {
+      return (
+        <div className="popup">
+          <div className="popup_inner">
+            <div className="popup-header">
+              <h2 className="text-info" style={{ fontSize: '20px', marginBottom: '0px' }}>Post</h2>
+              <button className="btn btn-danger btn-popup-close" onClick={this.props.closePopup}>X</button>
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <Spinner style={{ marginTop: '10px', marginBottom: '50%' }} size="sm" color="primary"/>
+            </div>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className="popup">
         <div className="popup_inner">
@@ -109,7 +152,7 @@ class ProfilePopup extends React.Component {
                 <input onChange={this.onChange}
                        value={this.state.rating}
                        className="form-control item" min="0" max="5"
-                       type="number" id="rating" style={{ fontSize: '14px' }}/>
+                       type="decimal" id="rating" style={{ fontSize: '14px' }}/>
               </div>
             </div>
             <div className="form-group">
@@ -123,7 +166,7 @@ class ProfilePopup extends React.Component {
                        id="keyword2" style={{ fontSize: '12px', marginRight: '10px' }}/>
                 <input onChange={this.onChange} value={this.state.keyword3}
                        className={"form-control item"} maxLength="20"
-                       id="keyword3" style={{ fontSize: '14px' }}/>
+                       id="keyword3" style={{ fontSize: '12px' }}/>
               </div>
             </div>
             <div className="form-group" style={{ marginRight: "5px" }}>
